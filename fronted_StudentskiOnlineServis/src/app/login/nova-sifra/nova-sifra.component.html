@@ -1,0 +1,22 @@
+<div id="body">
+  <div id="sty">
+    <div id="Naziv">
+      <h3 id="Reset">Resetovanje lozinke</h3>
+    </div>
+    <hr>
+
+    <div id="Lozinka">
+      <input class="form-control" placeholder="Unesite novu lozinku" type="password" [(ngModel)]="prvi_pass"
+             id="_prvi_pass">
+      <input class="form-control" placeholder="Ponovite unesenu lozinku" type="password" [(ngModel)]="drugi_pass"
+             id="_drugi_pass">
+    </div>
+    <div class="container">
+      <div class="vertical-center">
+        <input (click)="OnClick()" class="btn btn-success" id="Btn" type="Button" value="Potvrdi">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-warning" role="alert" *ngIf="EnableAlert == true"> GREŠKA</div>
+

@@ -1,0 +1,27 @@
+<div id="body">
+  <div id="sty">
+    <div id="Naziv">
+      <h3 id="PrijaviSe">Verifikujte se</h3>
+    </div>
+    <hr>
+    <div id="EK">
+      <div id="mail">
+        <input class="form-control" placeholder="E-mail" style="color: grey;" [(ngModel)]="email" id="_email">
+        <div class="CA"><span class="tick" [style.opacity]="_opacity">&#10003;</span></div>
+      </div>
+
+      <div id="kod">
+        <input class="form-control" placeholder="Unesite kod" type="text" [(ngModel)]="kod" id="_kod" [disabled]="_n0">
+        <div class="CA"><span class="tick" [style.opacity]="_2opacity">&#10003;</span></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="vertical-center">
+        <input (click)="OnClick_1()" class="btn btn-warning" id="Btn_1" type="Button" value="Provjeri e-mail">
+        <input (click)="OnClick_2()" class="btn btn-warning" id="Btn_2" type="Button" value="Provjeri kod">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-warning" role="alert" *ngIf="EnableAlert == true"> GREŠKA
+</div>

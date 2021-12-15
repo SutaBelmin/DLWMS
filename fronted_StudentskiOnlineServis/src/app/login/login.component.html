@@ -1,0 +1,28 @@
+<div id="body">
+  <div id="sty">
+    <div id="FormaZaPrijavu">
+      <h3 id="PrijaviSe">Prijavi se</h3>
+      <hr>
+      <br>
+      <div id="form-group">
+        <p id="PE"><input [(ngModel)]="BrojDosijea" class="form-control" placeholder="Broj dosijea" type="text"></p>
+        <p id="DE"><input [(ngModel)]="Password" class="form-control" placeholder="Lozinka" type="password"></p>
+        <div id="cmbFakulteti">
+          <select id="cmb_1" class="form-control" [(ngModel)]="OdabraniFakultet">
+            <option *ngFor="let fakultet of NizFakulteta" [value]='fakultet.id'>{{fakultet.naziv}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="vertical-center">
+        <button (click)="Login()" class="btn btn-info" id="BtnPrijava" style="color: white; background-color: lightseagreen"><b>Prijavi se</b></button>
+      </div>
+    </div>
+    <label class="form-check-label" id="FP" >
+      <a (click)="ForgotPassword()"><u>Zaboravio šifru?</u></a>
+    </label>
+  </div>
+</div>
+<div class="alert alert-warning" role="alert" *ngIf="EnableAlert == true"> <span [innerText]="warn"></span>
+</div>

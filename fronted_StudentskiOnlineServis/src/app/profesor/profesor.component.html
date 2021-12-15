@@ -1,0 +1,29 @@
+<div id="body">
+  <nav>
+    <ul>
+      <li><a>Obavijesti</a></li>
+      <li><a>Testovi</a></li>
+      <li><a>Rokovi</a></li>
+      <li><a>Dokumenti</a></li>
+      <li><a routerLink="/profesor/cas">Časovi</a></li>
+      <li><a>Forum</a></li>
+      <li id="Dl">Studentski online servis</li>
+      <li id="Odjava"><a (click)="LogOutR()">Odjavi se</a></li>
+    </ul>
+  </nav>
+</div>
+<div *ngIf="Pitanje==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel"
+     aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog" style="position:absolute; right: 0px; top: 42px; width: 20%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Da li ste sigurni?</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="CloseDialog()"></button>
+      </div>
+      <div class="modal-footer" style=" justify-content: flex-start;">
+        <button type="button" class="btn btn-secondary" (click)="CloseDialog()">Zatvori</button>
+        <button type="button" class="btn btn-danger" (click)="LogOut()">Odjavi se</button>
+      </div>
+    </div>
+  </div>
+</div>

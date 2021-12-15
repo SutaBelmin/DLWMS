@@ -1,0 +1,89 @@
+* {
+  font-family: Tahoma;
+}
+#body {
+  background-color: dimgrey;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+}
+#sty {
+  border-radius: 50px;
+  width: 30%;
+  position: absolute;
+  top: calc(100% - 75%);
+  left: 35%;
+  height: 40%;
+  background-color: whitesmoke;
+}
+#Naziv{
+  height: 7%;
+}
+#Naziv>h3{
+  position: center;
+}
+hr{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#Reset {
+  text-align: center;
+  font-family: Arial;
+  font-size: xx-large;
+  margin-top: 5%;
+}
+#Lozinka{
+  position: absolute;
+  top: 30%;
+  height: 35%;
+  width: 70%;
+  margin-left: 15%;
+}
+#Lozinka>input{
+  float: none;
+  width: 100%;
+  margin-bottom: 10px;
+}
+input {
+  height: 60px;
+  font-size: 20px;
+}
+
+.container {
+  position: absolute;
+  top: 70%;
+  text-align: center;
+}
+
+#Btn{
+  margin: 2px;
+  width: 36%;
+  height: 50px;
+  font-size: larger;
+  font-family: Arial;
+}
+
+::placeholder {
+  color: darkgrey;
+}
+
+.form-check {
+  position: absolute;
+  width: 50%;
+  top: 88%;
+  left: 15%;
+}
+#flexCheckDefault {
+  border: 1px solid green;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 30px;
+  bottom: 2px;
+}
+.form-control{
+  width: 86%;
+  float: right;
+}
