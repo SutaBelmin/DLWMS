@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("_Token", x.substr(0, 5));
           let korisnik = x.substr(6, x.length - 6);
           if (korisnik == "profesor")
-            this.route.navigateByUrl("/profesor")
+            this.route.navigateByUrl("/profesor");
+          if (korisnik == "student")
+            this.route.navigateByUrl("/student");
         } else {
           if (this.BrojDosijea == '' || this.Password == '' || this.BrojDosijea == undefined || this.Password == undefined) {
             this.warn = 'Niste unijeli podatke!';

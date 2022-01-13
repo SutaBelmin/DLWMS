@@ -1,0 +1,50 @@
+<form (ngSubmit)="Save()" #studentAddForm="ngForm" class="forma">
+  <div class="razmak">
+  <label>Ime</label><br>
+  <input type="text" [(ngModel)]="Students.ime" name="ime" required/>
+  </div>
+
+  <div class="razmak">
+  <label>Prezime</label><br>
+  <input type="text" [(ngModel)]="Students.prezime" name="prezime" required>
+  </div>
+
+  <div class="razmak">
+  <label>Broj indeksa</label><br>
+  <input type="text" [(ngModel)]="Students.broj_indeksa" name="broj_indexa" required>
+  </div>
+
+  <div class="razmak">
+    <label>Datum rodjenja</label><br>
+    <input type="date" [(ngModel)]="Students.datum_rodjenja" name="datum_rodjenja" required>
+  </div>
+
+  <div class="razmak">
+  <label>Fakulteti</label><br>
+  <select [(ngModel)]="Students.FakultetID" name="FakultetID" required>
+    <option *ngFor="let fakultet of Fakulteti" [ngValue]="fakultet.id">{{fakultet.naziv}}</option>
+  </select>
+  </div>
+
+  <div class="razmak">
+  <label>Korisnicko ime</label><br>
+  <input type="text" [(ngModel)]="Students.KorisnickoIme" name="KorisnickoIme" required>
+  </div>
+
+  <div class="razmak">
+  <label>Lozinka</label><br>
+  <input type="password" [(ngModel)]="Students.Lozinka" name="Lozinka" required>
+  </div>
+
+  <div class="razmak">
+    <label>Slika profila</label>
+    <input
+      type="file" (change)="onFileChanged($event)"
+      #fileInput>
+  </div>
+
+  <div class="razmak">
+  <button type="submit" [disabled]="!studentAddForm.valid">Dodaj studenta</button>
+  </div>
+
+</form>

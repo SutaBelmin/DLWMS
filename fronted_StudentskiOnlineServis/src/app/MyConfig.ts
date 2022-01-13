@@ -12,6 +12,9 @@ export class MojConfig {
   static GetBrojDosijea = this.MyLocalHost + '/Password/GetDosije?email=';
   static PromjeniPassword = this.MyLocalHost + '/Password/PromjeniPassword';
   static IzbrisiVerifikaciju = this.MyLocalHost +'/Password/IzbrisiVerifikaciju/';
+  static DodajStudenta = this.MyLocalHost +'/Student/Add';
+  static EditujStudenta = this.MyLocalHost +'/Student/Update';
+  static UploadImage = this.MyLocalHost + '/Student/UploadImage';
   static http_opcije = {
     headers: new HttpHeaders({"Content-Type": "application/json"})
   };
