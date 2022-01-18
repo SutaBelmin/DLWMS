@@ -10,7 +10,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels
         public string ime { get; set; }
         public string prezime { get; set; }
         public string broj_indeksa { get; set; }
-        public DateTime? datum_rodjenja { get; set; }
+        public DateTime datum_rodjenja { get; set; }
         public string slika_studenta { get; set; }
         public int FakultetID { get; set; }
         public string KorisnickoIme { get; set; }
