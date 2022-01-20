@@ -1,4 +1,5 @@
 ﻿using DLWMS_StudentskiOnlineServis.Modul_1.ViewModels;
+using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,9 +25,9 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Models
         public bool isProfesor => Profesor != null;
         public bool isAdmin { get; set; }
 
-        //[JsonIgnore]
-        //public Student student => this as Student;
-        //public bool isStudent => student != null;
+        [JsonIgnore]
+        public Student student => this as Student;
+        public bool isStudent => student != null;
 
     }
 }

@@ -4,8 +4,10 @@ import {Router} from "@angular/router";
 import {MojConfig} from "../MyConfig";
 import {LoginInformacije} from "../helpers/LoginInformacije";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
-declare function porukaSuccess (a:string):any;
-declare function porukaError (a:string):any;
+
+declare function porukaSuccess(a: string): any;
+
+declare function porukaError(a: string): any;
 
 @Component({
   selector: 'app-login',
@@ -38,9 +40,13 @@ export class LoginComponent implements OnInit {
     this.httpKlijent.post<LoginInformacije>(MojConfig.AutentifikacijaLogin, saljemo)
       .subscribe((x: LoginInformacije) => {
         if (x.isLogiran) {
-          if(x.isPermisijaProfesor){
-          AutentifikacijaHelper.setLoginInfo(x)
-          this.route.navigateByUrl("/profesor");
+          if (x.isPermisijaProfesor) {
+            AutentifikacijaHelper.setLoginInfo(x)
+            this.route.navigateByUrl("/profesor");
+          }
+          if(x.isPermisijaStudent){
+            AutentifikacijaHelper.setLoginInfo(x)
+            this.route.navigateByUrl("/student");
           }
         } else {
           AutentifikacijaHelper.setLoginInfo(null)

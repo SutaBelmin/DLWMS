@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220120181907_EditStudenta")]
+    partial class EditStudenta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,6 +121,38 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.ToTable("Verifikacije");
                 });
 
+            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DatumRodjenja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Ime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("KorisnickiNalogID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Prezime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("broj_indeksa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("slika_studenta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("KorisnickiNalogID");
+
+                    b.ToTable("Studenti");
+                });
+
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Korisnik", b =>
                 {
                     b.HasBaseType("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog");
@@ -162,31 +196,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasDiscriminator().HasValue("Profesor");
                 });
 
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", b =>
-                {
-                    b.HasBaseType("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog");
-
-                    b.Property<DateTime>("DatumRodjenja")
-                        .HasColumnName("Student_DatumRodjenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Ime")
-                        .HasColumnName("Student_Ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prezime")
-                        .HasColumnName("Student_Prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("broj_indeksa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("slika_studenta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Student");
-                });
-
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.AutentifikacijaToken", b =>
                 {
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog", "KorisnickiNalog")
@@ -201,6 +210,15 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Fakultet", "Fakultet")
                         .WithMany()
                         .HasForeignKey("FakultetID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", b =>
+                {
+                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog", "KorisnickiNalog")
+                        .WithMany()
+                        .HasForeignKey("KorisnickiNalogID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

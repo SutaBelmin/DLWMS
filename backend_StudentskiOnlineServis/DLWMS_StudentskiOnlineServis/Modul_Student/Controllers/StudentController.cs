@@ -33,37 +33,32 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             {
                 broj_indeksa = request.broj_indeksa,
                 slika_studenta = request.slika_studenta,
-                Korisnik = new Korisnik
-                {
-                    Vrsta_Korisnika = VrstaKorisnika.Student,
-                    Ime = request.ime,
-                    Prezime  = request.prezime,
-                    FakultetID = request.FakultetID,
-                    DatumRodjenja = request.datum_rodjenja,
-                    KorisnickoIme = request.KorisnickoIme,
-                    Lozinka = request.Lozinka
-                }
+                Ime = request.ime,
+                Prezime = request.prezime,
+                DatumRodjenja = request.datum_rodjenja,
+                FakultetID = request.FakultetID,
+                KorisnickoIme = request.KorisnickoIme,
+                Lozinka = request.Lozinka
             };
 
             _baza.Studenti.Add(newStudent);
             _baza.SaveChanges();
-            return Ok(newStudent.id);
+            return Ok(newStudent.ID);
         }
 
         [HttpPost("{id}")]
         public ActionResult Update(int id, [FromBody] StudentUpdateVM x)
         {
             Student student = _baza.Studenti.Find(id);
-            Korisnik korisnik = _baza.Korisnici.Find(student.KorisnikID);
 
             if (student == null)
                 return BadRequest("pogresan ID");
 
-            korisnik.Ime = x.ime;
-            korisnik.Prezime = x.prezime;
-            korisnik.DatumRodjenja = x.datum_rodjenja;
+            student.Ime = x.ime;
+            student.Prezime = x.prezime;
+            student.DatumRodjenja = x.datum_rodjenja;
             student.slika_studenta = x.slika_studenta;
-            korisnik.FakultetID = x.FakultetID;
+            student.FakultetID = x.FakultetID;
 
             _baza.SaveChanges();
             return Ok(GetByID(id));
@@ -73,24 +68,23 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         public StudentResponse GetByID(int id)
         {
             var student = _baza.Studenti
-                .Include(x => x.Korisnik)
-                .ThenInclude(x => x.Fakultet)
-                .FirstOrDefault(x => x.id == id);
+                .Include(x => x.Fakultet)
+                .FirstOrDefault(x => x.ID == id);
 
             return new StudentResponse
             {
-                id = student.id,
-                ime = student.Korisnik.Ime,
-                prezime = student.Korisnik.Prezime,
+                id = student.ID,
+                ime = student.Ime,
+                prezime = student.Prezime,
                 broj_indeksa = student.broj_indeksa,
-                datum_rodjenja = student.Korisnik.DatumRodjenja,
-                Fakultet = student.Korisnik.Fakultet,
-                fakultetID = student.Korisnik.FakultetID,
+                datum_rodjenja = student.DatumRodjenja,
+                Fakultet = student.Fakultet,
+                fakultetID = student.FakultetID,
                 slika_studenta = student.slika_studenta,
                 korisnickiNalog = new KorisnickiNalog
                 {
-                    ID = student.Korisnik.ID,
-                    KorisnickoIme = student.Korisnik.KorisnickoIme
+                    ID = student.ID,
+                    KorisnickoIme = student.KorisnickoIme
                 }
             };
         }
@@ -100,22 +94,21 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         {
             List<StudentResponse> studenti = 
                 _baza.Studenti
-                .Include(x => x.Korisnik)
-                .ThenInclude(x => x.Fakultet)
+                .Include(x => x.Fakultet)
                 .Select(student => new StudentResponse
                 {
-                    id = student.id,
-                    ime = student.Korisnik.Ime,
-                    prezime = student.Korisnik.Prezime,
+                    id = student.ID,
+                    ime = student.Ime,
+                    prezime = student.Prezime,
                     broj_indeksa = student.broj_indeksa,
-                    datum_rodjenja = student.Korisnik.DatumRodjenja,
-                    Fakultet = student.Korisnik.Fakultet,
-                    fakultetID = student.Korisnik.FakultetID,
+                    datum_rodjenja = student.DatumRodjenja,
+                    Fakultet = student.Fakultet,
+                    fakultetID = student.FakultetID,
                     slika_studenta = student.slika_studenta,
                     korisnickiNalog = new KorisnickiNalog
                     {
-                        ID = student.Korisnik.ID,
-                        KorisnickoIme = student.Korisnik.KorisnickoIme
+                        ID = student.ID,
+                        KorisnickoIme = student.KorisnickoIme
                     }
                 })
                 .ToList();
@@ -127,14 +120,12 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         public ActionResult Delete(int id)
         {
             Student student = _baza.Studenti
-                .Include(x => x.Korisnik)
-                .FirstOrDefault(x => x.id == id);
+                .FirstOrDefault(x => x.ID == id);
 
             if (student == null)
                 return BadRequest("pogresan ID");
 
             _baza.Remove(student);
-            _baza.Remove(student.Korisnik);
 
             _baza.SaveChanges();
             return Ok(student);
