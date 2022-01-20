@@ -12,7 +12,8 @@ import { NavMenuComponent } from './StudentModule/_components/nav-menu/nav-menu.
 import { StudentsSearchComponent } from './StudentModule/students-search/students-search.component';
 import { StudentAddComponent } from './StudentModule/student-add/student-add.component';
 import { StudentEditComponent } from './StudentModule/student-edit/student-edit.component';
-
+import {AutorizacijaLoginProvjera} from "./guards/AutorizacijaLoginProvjera";
+import {AutorizacijaProfesor} from "./guards/AutorizacijaProfesor";
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,10 @@ import { StudentEditComponent } from './StudentModule/student-edit/student-edit.
 
     ]),
   ],
-  providers: [],
+  providers: [
+    AutorizacijaProfesor,
+    AutorizacijaLoginProvjera
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

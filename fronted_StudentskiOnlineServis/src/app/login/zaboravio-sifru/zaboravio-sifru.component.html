@@ -17,8 +17,9 @@
     </div>
     <div class="container">
       <div class="vertical-center">
-        <input (click)="OnClick_1()" class="btn btn-warning" id="Btn_1" type="Button" value="Provjeri e-mail">
+        <input (click)="OnClick_1()" class="btn btn-warning" [disabled]="btn" id="Btn_1" type="Button" value="Provjeri e-mail">
         <input (click)="OnClick_2()" class="btn btn-warning" id="Btn_2" type="Button" value="Provjeri kod">
+        <h3 id="poruka">{{poruka}}</h3>
       </div>
     </div>
   </div>

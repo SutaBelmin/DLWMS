@@ -1,6 +1,21 @@
 import {HttpHeaders} from "@angular/common/http";
+import {AutentifikacijaToken} from "./helpers/LoginInformacije";
+import {AutentifikacijaHelper} from "./helpers/autentifikacija-helper";
 
 export class MojConfig {
+  static http_opcije= function () {
+
+    let autentifikacijaToken: AutentifikacijaToken = AutentifikacijaHelper.getLoginInfo().autentifikacijaToken;
+    let mojtoken = "";
+
+    if (autentifikacijaToken != null)
+      mojtoken = autentifikacijaToken.vrijednost;
+    return {
+      headers: {
+        'autentifikacija-token': mojtoken,
+      }
+    };
+  }
   static MyLocalHost = 'http://localhost:59854';
   static GetKorisnici = this.MyLocalHost + '/Korisnik/GetKorisnike';
   static AutentifikacijaLogin = this.MyLocalHost + '/AutentifikacijaLogin/Login';
@@ -15,7 +30,6 @@ export class MojConfig {
   static DodajStudenta = this.MyLocalHost +'/Student/Add';
   static EditujStudenta = this.MyLocalHost +'/Student/Update';
   static UploadImage = this.MyLocalHost + '/Student/UploadImage';
-  static http_opcije = {
-    headers: new HttpHeaders({"Content-Type": "application/json"})
-  };
+  static _BrisanjeZapisa=this.MyLocalHost+'/Email/BrisanjeZapisa/';
+
 }

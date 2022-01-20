@@ -6,25 +6,44 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using DLWMS_StudentskiOnlineServis.Modul_1.Models;
 using DLWMS_StudentskiOnlineServis.Data;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Studentski_online_servis.Helper
 {
     public static class MyAuthTokenExtension
     {
+        public class LoginInformacije
+        {
+            public LoginInformacije(AutentifikacijaToken autentifikacijaToken)
+            {
+                this.autentifikacijaToken = autentifikacijaToken;
+            }
 
-        public static AutentifikacijaToken GetKorisnikOfAuthToken(this HttpContext httpContext)
+            [JsonIgnore]
+            public KorisnickiNalog korisnickiNalog => autentifikacijaToken?.KorisnickiNalog;
+            public AutentifikacijaToken autentifikacijaToken { get; set; }
+            public bool isLogiran => korisnickiNalog != null;
+            public bool isPermisijaProfesor => isLogiran && (korisnickiNalog.Profesor != null || korisnickiNalog.isAdmin);
+            public bool isPermisijaAdmin => isLogiran && korisnickiNalog.isAdmin;
+        }
+        public static LoginInformacije GetLoginInfo(this HttpContext httpContext)
+        {
+            var token = httpContext.GetAuthToken();
+
+            return new LoginInformacije(token);
+        }
+        public static AutentifikacijaToken GetAuthToken(this HttpContext httpContext)
         {
             string token = httpContext.GetMyAuthToken();
             DLWMS_baza db = httpContext.RequestServices.GetService<DLWMS_baza>();
-            AutentifikacijaToken tokenNalog= db.AutentifikacijaToken.Where(x => token != null && x.Vrijednost == token).SingleOrDefault();
-            return tokenNalog;
-        }
 
-        //public static KorisnickiNalog GetKorisnikOfAuthToken(string token)
-        //{
-        //    //KorisnickiNalog korisnickiNalog = dlwms.AutentifikacijaToken.Where(x => token != null && x.Vrijednost == token).Select(s => s.KorisnickiNalog).SingleOrDefault();
-        //    //return korisnickiNalog;
-        //}
+            AutentifikacijaToken korisnickiNalog = db.AutentifikacijaToken
+                .Include(s => s.KorisnickiNalog)
+                .SingleOrDefault(x => token != null && x.Vrijednost == token);
+
+            return korisnickiNalog;
+        }
 
         public static string GetMyAuthToken(this HttpContext httpContext)
         {

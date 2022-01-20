@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {MojConfig} from "../MyConfig";
+import {LoginInformacije} from "../helpers/LoginInformacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
+declare function porukaSuccess (a:string):any;
+declare function porukaError (a:string):any;
 
 @Component({
   selector: 'app-login',
@@ -30,22 +34,17 @@ export class LoginComponent implements OnInit {
 
   Login() {
     let saljemo = {username: this.BrojDosijea, password: this.Password, fakultet_s: parseInt(this.OdabraniFakultet)};
-    this.httpKlijent.post(MojConfig.AutentifikacijaLogin, saljemo, {responseType: "text"})
-      .subscribe((x: any) => {
-        if (x != 'GRESKA') {
-          localStorage.setItem("_Token", x.substr(0, 5));
-          let korisnik = x.substr(6, x.length - 6);
-          if (korisnik == "profesor")
-            this.route.navigateByUrl("/profesor");
-          if (korisnik == "student")
-            this.route.navigateByUrl("/student");
-        } else {
-          if (this.BrojDosijea == '' || this.Password == '' || this.BrojDosijea == undefined || this.Password == undefined) {
-            this.warn = 'Niste unijeli podatke!';
-          } else {
-            this.warn = 'Pogrešan broj dosijea ili šifra';
+
+    this.httpKlijent.post<LoginInformacije>(MojConfig.AutentifikacijaLogin, saljemo)
+      .subscribe((x: LoginInformacije) => {
+        if (x.isLogiran) {
+          if(x.isPermisijaProfesor){
+          AutentifikacijaHelper.setLoginInfo(x)
+          this.route.navigateByUrl("/profesor");
           }
-          this.EnableAlert = true;
+        } else {
+          AutentifikacijaHelper.setLoginInfo(null)
+          porukaError("G R E Š K A !");
         }
       });
   }

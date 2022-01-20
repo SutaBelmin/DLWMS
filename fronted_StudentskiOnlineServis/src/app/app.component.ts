@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'DLWMS';
 
   constructor(private route: Router) {
-    //this.route.navigate(['/login']);
+    this.route.navigate(['/login']);
   }
 }

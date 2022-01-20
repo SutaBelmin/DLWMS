@@ -3,11 +3,16 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {MojConfig} from "../../MyConfig";
 
+declare function porukaSuccess(a: string): any;
+
+declare function porukaError(a: string): any;
+
 @Component({
   selector: 'app-zaboravio-sifru',
   templateUrl: './zaboravio-sifru.component.html',
   styleUrls: ['./zaboravio-sifru.component.css']
 })
+
 export class ZaboravioSifruComponent implements OnInit {
   email: any;
   kod: any;
@@ -16,7 +21,11 @@ export class ZaboravioSifruComponent implements OnInit {
   testniKod: string = ' ';
   _opacity: any;
   _2opacity: any;
-  brojac:number=0;
+  brojac: number = 0;
+  btn: any;
+  Timer: number = 0;
+  poruka: any;
+
   constructor(private httpKlijent: HttpClient, private route: Router) {
   }
 
@@ -32,25 +41,28 @@ export class ZaboravioSifruComponent implements OnInit {
         poruka = x;
         p = true;
         if (poruka == 'F') {
-          this.EnableAlert = true;
-          this._opacity='5%';
+          porukaError("G R E Š K A !");
+          this._opacity = '5%';
           return;
         }
-        this._opacity='40%';
-        this.EnableAlert = false;
+        this._opacity = '40%';
+        porukaSuccess("T A Č N O !")
         this._n0 = false;
         //Postavljanje koda
         let S = {'mail': this.email};
         this.brojac++;
-        if(this.brojac>=2){
-          this.httpKlijent.delete(MojConfig.IzbrisiVerifikaciju+this.testniKod).subscribe();
-        }
         this.httpKlijent.post(MojConfig.GetVerifikacijskiKod, S, {responseType: "text"}).subscribe(y => {
           this.testniKod = y;
           //Slanje maila
           let Slanje = {to: this.email, subject: 'Verifikacijski kod', sadrzaj: y};
           this.httpKlijent.post(MojConfig.PosaljiMail, Slanje).subscribe();
         });
+        this.btn = true;
+        this.poruka = "Novi pokušaj za 60 sekundi!";
+        setTimeout(() => {
+          this.poruka = "";
+          this.btn = false;
+        }, 60000)
       });
 
     }
@@ -59,19 +71,17 @@ export class ZaboravioSifruComponent implements OnInit {
 
   OnClick_2() {
     if (this.kod == this.testniKod) {
-      this._2opacity='40%';
+      this._2opacity = '40%';
 
       this.httpKlijent.get(MojConfig.GetBrojDosijea + this.email, {responseType: "text"}).subscribe(a => {
         localStorage.setItem("BrojDosijea", a);
       });
-      this.httpKlijent.delete(MojConfig.IzbrisiVerifikaciju+this.testniKod).subscribe();
+      this.httpKlijent.delete(MojConfig._BrisanjeZapisa + this.email).subscribe();
       this.route.navigateByUrl("nova_sifra");
-      this.EnableAlert=false;
+      porukaSuccess("T A Č N O !");
+    } else {
+      this._2opacity = '5%';
+      porukaError("G R E Š K A !");
     }
-    else {
-      this._2opacity='5%';
-      this.EnableAlert=true;
-    }
-
   }
 }

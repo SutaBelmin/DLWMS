@@ -1,17 +1,19 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_1.Models;
+using DLWMS_StudentskiOnlineServis.Modul_1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Studentski_online_servis.Helper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
 
-namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
+namespace Studentski_online_servis.IB190057.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class EmailController
+    public class EmailController : ControllerBase
     {
         private DLWMS_baza _dbContext;
         public EmailController(DLWMS_baza dbContext)
@@ -23,16 +25,13 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
         {
             if (string.IsNullOrEmpty(Email))
                 return "F";
-            bool nadjen = _dbContext.Korisnici.Where(x => x.Privatni_email == Email).Count() > 0;
+            bool nadjen = _dbContext.KorisnickiNalog.Where(x => x.PrivatniEmail == Email).Count() > 0;
             if (nadjen)
                 return "T";
             else
                 return "F";
         }
-        public class PostavljanjeVerifikacijeVM
-        {
-            public string mail { get; set; }
-        }
+
         [HttpPost]
         public string GenerisiToken([FromBody] PostavljanjeVerifikacijeVM pv)
         {
@@ -42,30 +41,29 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
             _dbContext.SaveChanges();
             return token;
         }
-        [HttpDelete ("{Email}")]
-        public void BrisanjeZapisa(string Email)
+        [HttpDelete("{Email}")]
+        public IActionResult BrisanjeZapisa(string Email)
         {
-            Verifikacija v=_dbContext.Verifikacije.Where(x => x.Email == Email).FirstOrDefault();
-            _dbContext.Remove(v);
+            List<Verifikacija> v = _dbContext.Verifikacije.Where(x => x.Email == Email).ToList();
+            foreach (Verifikacija i in v)
+            {
+                _dbContext.Remove(i);
+            }
             _dbContext.SaveChanges();
+            return Ok();
         }
-        public class MailVM
-        {
-            public string To { get; set; }
-            public string Subject { get; set; }
-            public string Sadrzaj { get; set; }
-        }
+
         [HttpPost]
-        public void SendMail([FromBody] MailVM m)
+        public IActionResult SendMail([FromBody] MailVM m)
         {
-            MailMessage message = new MailMessage("verifikacija.vm@gmail.com", m.To);
+            MailMessage message = new MailMessage("mverifikacija@gmail.com", m.To);
             message.Subject = m.Subject;
             message.Body = m.Sadrzaj;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("verifikacija.vm@gmail.com", "Verifikacija.VM");
+            System.Net.NetworkCredential("mverifikacija@gmail.com", "Verifikacija.VM");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
@@ -78,6 +76,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
             {
                 throw ex;
             }
+            return Ok();
         }
     }
 }
