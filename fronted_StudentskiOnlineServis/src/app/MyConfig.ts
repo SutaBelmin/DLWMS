@@ -16,7 +16,7 @@ export class MojConfig {
       }
     };
   }
-  static MyLocalHost = 'http://localhost:59854';
+  static MyLocalHost = 'https://dlwms-api.p2103.app.fit.ba';
   static GetKorisnici = this.MyLocalHost + '/Korisnik/GetKorisnike';
   static AutentifikacijaLogin = this.MyLocalHost + '/AutentifikacijaLogin/Login';
   static GetFakulteti = this.MyLocalHost + '/Fakultet/GetFakulteti';

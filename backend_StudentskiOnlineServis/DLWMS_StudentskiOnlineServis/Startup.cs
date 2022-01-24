@@ -64,7 +64,7 @@ namespace DLWMS_StudentskiOnlineServis
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseCors(
+          app.UseCors(
                options => options
                .SetIsOriginAllowed(x => _ = true)
                .AllowAnyMethod()

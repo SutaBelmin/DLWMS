@@ -24,7 +24,7 @@ export class StudentEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpClient.get<Student>(`http://localhost:59854/Student/GetById/${this.id}`).subscribe(s =>{
+    this.httpClient.get<Student>(`https://dlwms-api.p2103.app.fit.ba/Student/GetById/${this.id}`).subscribe(s =>{
       this.student.ime = s.ime;
       this.student.prezime = s.prezime;
       this.student.datum_rodjenja=s.datum_rodjenja;

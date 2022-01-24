@@ -23,14 +23,14 @@ export class StudentsSearchComponent implements OnInit {
   }
 
   getStudents(){
-    this.httpClient.get<Student[]>("http://localhost:59854/Student/GetAll").subscribe(x => {
+    this.httpClient.get<Student[]>("https://dlwms-api.p2103.app.fit.ba/Student/GetAll").subscribe(x => {
       this.students = x;
       this.allStudent=x;
     });
   }
 
   delete(id: number){
-    this.httpClient.delete(`http://localhost:59854/Student/Delete/${id}`).subscribe(x => {
+    this.httpClient.delete(`https://dlwms-api.p2103.app.fit.ba/Student/Delete/${id}`).subscribe(x => {
       this.getStudents();
     });
   }
