@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220302174324_Predmet")]
+    partial class Predmet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,11 +128,11 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Naziv")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Naziv")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Oznaka")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Oznaka")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -222,21 +224,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Profesor");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Referent.Models.Referent", b =>
-                {
-                    b.HasBaseType("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog");
-
-                    b.Property<string>("Ime")
-                        .HasColumnName("Referent_Ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prezime")
-                        .HasColumnName("Referent_Prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Referent");
                 });
 
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", b =>

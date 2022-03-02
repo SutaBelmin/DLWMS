@@ -1,4 +1,5 @@
 ﻿using DLWMS_StudentskiOnlineServis.Modul_1.ViewModels;
+using DLWMS_StudentskiOnlineServis.Modul_Referent.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,10 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Models
         [JsonIgnore]
         public Student student => this as Student;
         public bool isStudent => student != null;
+
+        [JsonIgnore]
+        public Referent referent => this as Referent;
+        public bool isReferent => referent != null;
 
     }
 }

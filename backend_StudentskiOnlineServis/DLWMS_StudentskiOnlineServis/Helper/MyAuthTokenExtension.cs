@@ -26,7 +26,9 @@ namespace Studentski_online_servis.Helper
             public bool isLogiran => korisnickiNalog != null;
             public bool isPermisijaProfesor => isLogiran && (korisnickiNalog.Profesor != null || korisnickiNalog.isAdmin);
             public bool isPermisijaAdmin => isLogiran && korisnickiNalog.isAdmin;
-            public bool isPermisijaStudent => isLogiran && (korisnickiNalog.student != null || korisnickiNalog.isAdmin);
+            public bool isPermisijaStudent => isLogiran && (korisnickiNalog.isStudent || korisnickiNalog.isAdmin);
+            public bool isPermisijaReferent => isLogiran && (korisnickiNalog.isReferent || korisnickiNalog.isAdmin);
+
         }
         public static LoginInformacije GetLoginInfo(this HttpContext httpContext)
         {
