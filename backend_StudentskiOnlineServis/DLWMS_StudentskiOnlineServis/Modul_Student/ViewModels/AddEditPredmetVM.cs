@@ -10,5 +10,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Models
         public string Naziv { get; set; }
 
         public string Oznaka { get; set; }
+
+        public int Godina { get; set; }
     }
 }

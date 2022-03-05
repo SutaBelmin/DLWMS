@@ -43,6 +43,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
             predmet.Naziv = x.Naziv;
             predmet.Oznaka = x.Oznaka;
+            predmet.Godina = x.Godina;
 
             _baza.Predmet.Add(predmet);
             _baza.SaveChanges();
@@ -57,6 +58,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
             predmet.Naziv = x.Naziv;
             predmet.Oznaka = x.Oznaka;
+            predmet.Godina = x.Godina;
 
             _baza.SaveChanges();
 

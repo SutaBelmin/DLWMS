@@ -19,7 +19,8 @@ namespace DLWMS_StudentskiOnlineServis.Data
         public DbSet<Profesor_Predmet> Profesor_Predmet { get; set; }
         public DbSet<Referent> Referent { get; set; }
         public DbSet<Student_Predmet> Student_Predmet { get; set; }
-
+        public DbSet<Uspjeh> Uspjeh { get; set; }
+        public DbSet<Potvrda> Potvrda { get; set; }
 
         public DLWMS_baza(DbContextOptions options) : base(options) { }
 

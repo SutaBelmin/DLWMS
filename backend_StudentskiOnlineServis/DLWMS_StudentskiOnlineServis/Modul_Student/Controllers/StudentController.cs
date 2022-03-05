@@ -152,6 +152,29 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             });
         }
 
+        [HttpGet]
+        public ActionResult GetProsjekByGodina(int godina, int studentId)
+        {
+            var result = _baza.Uspjeh
+                .Include(x=>x.student_predmet)
+                .ThenInclude(x=>x.predmet)
+                .Where(x => x.student_predmet.predmet.Godina == godina
+                                           && x.student_predmet.studentId == studentId)
+                                           .Average(x=>x.ocjena);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public ActionResult GetUkupniProsjek(int studentId)
+        {
+            var result = _baza.Uspjeh
+                .Include(x => x.student_predmet)
+                .Where(x => x.student_predmet.studentId == studentId)
+                      .Average(x => x.ocjena);
+            return Ok(result);
+        }
+
+
 
     }
 }
