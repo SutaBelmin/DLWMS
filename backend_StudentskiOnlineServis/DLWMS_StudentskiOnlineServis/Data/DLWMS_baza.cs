@@ -21,13 +21,16 @@ namespace DLWMS_StudentskiOnlineServis.Data
         public DbSet<Student_Predmet> Student_Predmet { get; set; }
         public DbSet<Uspjeh> Uspjeh { get; set; }
         public DbSet<Potvrda> Potvrda { get; set; }
-
+        public DbSet<Cas> Casovi { get; set; }
+        public DbSet<Prisustvo> Prisustva { get; set; }
+        public DbSet<Rok> Rokovi { get; set; }
+        public DbSet<Pitanje> Pitanja { get; set; }
+        public DbSet<Odgovor> Odgovori { get; set; }
         public DLWMS_baza(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             var entityTypes = modelBuilder.Model.GetEntityTypes();
             foreach(var entity in entityTypes)
             {

@@ -1,0 +1,59 @@
+<app-profesor></app-profesor>
+<div id="Okvir-Cas">
+  <br>
+  <div *ngIf="NoviCas!=null">
+    <div class="form-group row" style="padding-left: 45px;">
+      <label class="col-sm-2 col-form-label">Lekcija:</label>
+      <div for="lekcija"  class="col-sm-10">
+        <input [(ngModel)]="NoviCas.lekcija"  type="text" class="form-control" style="width: 80%; position: relative; right: 8px;" id="lekcija" placeholder="Lekcija">
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" style="padding-left: 45px;">
+      <label class="col-sm-2 col-form-label">Datum:</label>
+      <div for="datum" class="col-sm-10">
+        <input [(ngModel)]="NoviCas.datum" type="date" class="form-control" id="datum" style="width: 80%; position: relative; right: 8px;">
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" style="padding-left: 45px;">
+      <label class="col-sm-2 col-form-label">Predmet:</label>
+      <div for="predmet" class="col-sm-10">
+        <select [(ngModel)]="predmetID" class="form-control" id="predmet" style="width: 80%; position: relative; right: 8px;">
+          <option disabled selected>Izaberi predmet</option>
+          <option *ngFor="let p of predmets" [value]="p.predmetId">{{p.predmet.naziv}}</option>
+        </select>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" style="margin-left: 137px; margin-top: 20px; width: 61%;" (click)="AddCas()">Dodaj novi čas</button>
+  </div>
+</div>
+<div id="listaCasova">
+  <label style="margin-top: 30px; margin-left: 30px;">Filtiraj podatke po predmetu: </label>
+  <br>
+  <select style="margin-left: 30px; width: 180px; height: 35px;" [(ngModel)]="predmetFilter">
+    <option>SVI</option>
+    <option *ngFor="let p of predmets" [value]="p.predmet.naziv">{{p.predmet.naziv}}</option>
+  </select>
+  <table class="table table-dark" style="margin-left: 30px; width: calc(100% - 60px); margin-top: 50px; background-color: #03324b;">
+    <thead>
+    <tr style="text-align: center;">
+      <th scope="col">Predmet:</th>
+      <th scope="col">Lekcija:</th>
+      <th scope="col">Održan:</th>
+      <th scope="col">Prisustvo:</th>
+      <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="text-align: center;" *ngFor="let c of filterCasova()">
+      <th scope="row">{{c.predmet.naziv}}</th>
+      <td>{{c.lekcija}}</td>
+      <td>{{c.datum.toLocaleString().substr(0,10)}}</td>
+      <td><button class="buttons" (click)="Prisustvo(c)">Prisustvo</button></td>
+      <td><button (click)="obrisiCas(c.id)" class="btn btn-info" style="padding: 0 5px 0 5px;">X</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

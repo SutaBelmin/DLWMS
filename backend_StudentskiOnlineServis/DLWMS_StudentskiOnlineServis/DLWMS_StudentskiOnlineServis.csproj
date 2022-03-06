@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20211218104656_AddStudentMigration.Designer.cs" />
     <Compile Remove="Migrations\20220118172020_StudentKorisnik.cs" />
     <Compile Remove="Migrations\20220118172020_StudentKorisnik.Designer.cs" />
+    <Compile Remove="Migrations\20220306124252_rokovi.cs" />
+    <Compile Remove="Migrations\20220306124252_rokovi.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

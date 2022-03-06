@@ -1,4 +1,3 @@
-import {HttpHeaders} from "@angular/common/http";
 import {AutentifikacijaToken} from "./helpers/LoginInformacije";
 import {AutentifikacijaHelper} from "./helpers/autentifikacija-helper";
 
@@ -17,7 +16,6 @@ export class MojConfig {
     };
   }
   static MyLocalHost = 'http://localhost:59854';
-  static GetKorisnici = this.MyLocalHost + '/Korisnik/GetKorisnike';
   static AutentifikacijaLogin = this.MyLocalHost + '/AutentifikacijaLogin/Login';
   static GetFakulteti = this.MyLocalHost + '/Fakultet/GetFakulteti';
   static AutentifikacijaLogOut = this.MyLocalHost + '/AutentifikacijaLogin/Logout';
@@ -31,5 +29,4 @@ export class MojConfig {
   static EditujStudenta = this.MyLocalHost +'/Student/Update';
   static UploadImage = this.MyLocalHost + '/Student/UploadImage';
   static _BrisanjeZapisa=this.MyLocalHost+'/Email/BrisanjeZapisa/';
-
 }

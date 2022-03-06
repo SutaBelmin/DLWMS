@@ -17,6 +17,6 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Models
         [ForeignKey(nameof(predmet))]
         public int predmetId { get; set; }
         public Predmet predmet { get; set; }
-
+        public bool? isPolozio { get; set; }
     }
 }

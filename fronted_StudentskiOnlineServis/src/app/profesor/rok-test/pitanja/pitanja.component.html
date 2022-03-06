@@ -1,0 +1,74 @@
+<app-profesor></app-profesor>
+
+<div id="Okvir" [style.display]="display">
+  <a
+    style="position: relative; font-size: xx-large; font-family: Arial; color: midnightblue; margin: 0px 0px 0px 0px">Pitanja:</a>
+  <table class="table" id="tbl">
+    <thead>
+    <tr class="table-active">
+      <th scope="col">#</th>
+      <th scope="col">Pitanje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-secondary" *ngFor="let pitanje of Pitanja; let i = index">
+      <td>{{pitanje.indeks}}</td>
+      <td>
+        <textarea [disabled]="prikazi" class="_in" rows="5" cols="50"
+                  [(ngModel)]="NizSadrzaja[i]">{{pitanje.sadrzaj}}</textarea>
+        <button [disabled]="prikazi" style="position: relative; margin-left: 20px; margin-bottom: 30px;"
+                class="btn btn-primary" id="DodajNoviOdgovor_" (click)="Edituj(pitanje.id, pitanje.indeks)">Promjeni
+        </button>
+        <button [disabled]="prikazi" style="position: relative; margin-left: 20px; margin-bottom: 30px;"
+                class="btn btn-danger" id="btnBrisanjePitanja" (click)="ObrisiPitanje(pitanje.id)">Obriši pitanje
+        </button>
+        <table class="table" style="width: 100%;">
+          <thead>
+          <tr class="table-info">
+            <th scope="col">Ponuđeni</th>
+            <th scope="col">Tačan (true/false)</th>
+            <th scope="col">Izbriši odgovor</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let odgovor of Odgovori">
+            <tr class="table-info" *ngIf="odgovor.pitanje.id==pitanje.id">
+              <td><input disabled class="_in" value="{{odgovor.sadrzajOdgovora}}"></td>
+              <td><input disabled class="_in" value="{{odgovor.tacan}}"></td>
+              <td>
+                <button [disabled]="prikazi" (click)="ObrisiOdgovor(odgovor.id)" class="_btn"
+                        style="border: 1px solid lightgrey; color: #333333; border-radius: 4px;">X
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+
+          <tr class="table-info">
+            <td><input [disabled]="prikazi" class="_in" [(ngModel)]="NizOdgovora[i]" value=""
+                       placeholder="Unesite odgovor:"></td>
+            <td><input [disabled]="prikazi" class="_in" [(ngModel)]="NizTacnosti[i]" value=""
+                       placeholder="Unesite tacnost:"></td>
+            <td>
+              <button [disabled]="prikazi" (click)="DodajOdgovor(pitanje.id, pitanje.indeks)" class="_btn"
+                      style="border: 1px solid lightgrey; color: #333333; border-radius: 4px; ">Dodaj
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr class="table-secondary">
+      <td>Novo pitanje:</td>
+      <td>
+        <textarea [disabled]="prikazi" class="_in" rows="5" cols="50" placeholder="Unesite pitanje"
+                  [(ngModel)]="Pitanje"></textarea>
+        <button [disabled]="prikazi" id="_btn" class="btn btn-primary" id="DodajNoviOdgovor" (click)="DodajPitanje()"
+                style="position: relative; margin-left: 20px; margin-bottom: 30px;">Dodaj
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

@@ -2,6 +2,8 @@
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Studentski_online_servis.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +30,18 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
             student_predmet.studentId = x.studentId;
             student_predmet.predmetId = x.predmetId;
-
+            student_predmet.isPolozio = false;
             _baza.Student_Predmet.Add(student_predmet);
             _baza.SaveChanges();
 
             return Ok();
+        }
+        [HttpGet ("predmetID")]
+        public object GetStudentPredmetPodaci(int predmetID)
+        {
+            //if (!HttpContext.GetLoginInfo().isPermisijaProfesor)
+            //    return BadRequest("Profesor nije logiran!");
+            return _baza.Student_Predmet.Include(x=>x.predmet).Include(x=>x.student).Where(x => x.predmetId == predmetID && x.isPolozio==false).ToList();
         }
     }
 }
