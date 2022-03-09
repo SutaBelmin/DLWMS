@@ -9,11 +9,13 @@ import { ZaboravioSifruComponent } from './login/zaboravio-sifru/zaboravio-sifru
 import { NovaSifraComponent } from './login/nova-sifra/nova-sifra.component';
 import { ProfesorComponent } from './profesor/profesor.component';
 import { NavMenuComponent } from './StudentModule/_components/nav-menu/nav-menu.component';
-import { StudentsSearchComponent } from './StudentModule/students-search/students-search.component';
-import { StudentAddComponent } from './StudentModule/student-add/student-add.component';
-import { StudentEditComponent } from './StudentModule/student-edit/student-edit.component';
+import { StudentsSearchComponent } from './StudentModule/Referent/students-search/students-search.component';
+import { StudentAddComponent } from './StudentModule/Referent/student-add/student-add.component';
+import { StudentEditComponent } from './StudentModule/Referent/student-edit/student-edit.component';
 import {AutorizacijaLoginProvjera} from "./guards/AutorizacijaLoginProvjera";
 import {AutorizacijaProfesor} from "./guards/AutorizacijaProfesor";
+import { ReferentPotvrdeComponent } from './StudentModule/Referent/referent-potvrde/referent-potvrde.component';
+import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde/student-potvrde.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,8 @@ import {AutorizacijaProfesor} from "./guards/AutorizacijaProfesor";
     StudentsSearchComponent,
     StudentAddComponent,
     StudentEditComponent,
+    ReferentPotvrdeComponent,
+    StudentPotvrdeComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,10 @@ import {AutorizacijaProfesor} from "./guards/AutorizacijaProfesor";
       {path: 'profesor', component: ProfesorComponent},
       {path: 'student', component: StudentsSearchComponent},
       {path: 'student/add', component: StudentAddComponent},
-      {path: 'student/:id', component: StudentEditComponent}
+      {path: 'student/:id', component: StudentEditComponent},
+
+      {path: 'ref-potvrde', component: ReferentPotvrdeComponent},
+      {path: 'stu-potvrde', component: StudentPotvrdeComponent}
 
     ]),
   ],

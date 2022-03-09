@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Router} from "@angular/router";
-import {StudentUpdateVM} from "../_models/StudentUpdateVM";
+import {StudentUpdateVM} from "../../_models/StudentUpdateVM";
 import {HttpClient} from "@angular/common/http";
-import {Student} from "../_models/Student";
-import {MojConfig} from "../../MyConfig";
+import {Student} from "../../_models/Student";
+import {MojConfig} from "../../../MyConfig";
 
 @Component({
   selector: 'app-student-edit',

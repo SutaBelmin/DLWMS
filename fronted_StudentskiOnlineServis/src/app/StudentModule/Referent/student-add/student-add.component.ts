@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Student} from "../_models/Student";
-import {StudentAddVM} from "../_models/StudentAddVM";
-import {MojConfig} from "../../MyConfig";
+import {Student} from "../../_models/Student";
+import {StudentAddVM} from "../../_models/StudentAddVM";
+import {MojConfig} from "../../../MyConfig";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 

@@ -16,7 +16,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Models
         public Student student { get; set; }
 
         [ForeignKey(nameof(referent))]
-        public int referentId { get; set; }
+        public int? referentId { get; set; }
         public Referent referent { get; set; }
 
         public bool Izdata { get; set; }
