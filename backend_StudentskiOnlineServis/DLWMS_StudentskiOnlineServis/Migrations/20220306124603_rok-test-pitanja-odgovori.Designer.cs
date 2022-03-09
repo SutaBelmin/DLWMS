@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220306124603_rok-test-pitanja-odgovori")]
+    partial class roktestpitanjaodgovori
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,7 +267,7 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.Property<DateTime>("datum_izdavanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("referentId")
+                    b.Property<int>("referentId")
                         .HasColumnType("int");
 
                     b.Property<int>("studentId")
@@ -565,7 +567,8 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Referent.Models.Referent", "referent")
                         .WithMany()
                         .HasForeignKey("referentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", "student")
                         .WithMany()

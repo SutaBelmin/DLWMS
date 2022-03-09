@@ -9,11 +9,11 @@
 }
 #sty {
   border-radius: 50px;
-  width: 30%;
+  width: 40%;
   position: absolute;
-  top: calc(100% - 75%);
-  left: 35%;
-  height: 40%;
+  top: calc(100% - 80%);
+  left: 30%;
+  height: 50%;
   background-color: whitesmoke;
 }
 #Naziv{

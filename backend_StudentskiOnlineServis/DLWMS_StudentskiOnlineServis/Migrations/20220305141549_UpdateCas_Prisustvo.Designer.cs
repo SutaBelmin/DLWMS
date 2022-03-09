@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220305141549_UpdateCas_Prisustvo")]
+    partial class UpdateCas_Prisustvo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,52 +131,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("KorisnickiNalog");
                 });
 
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Odgovor", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PitanjeID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SadrzajOdgovora")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Tacan")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PitanjeID");
-
-                    b.ToTable("Odgovori");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Pitanje", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Indeks")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RokID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sadrzaj")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RokID");
-
-                    b.ToTable("Pitanja");
-                });
-
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Prisustvo", b =>
                 {
                     b.Property<int>("ID")
@@ -195,40 +151,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasIndex("StudentID");
 
                     b.ToTable("Prisustva");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Rok", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool?>("Aktivan")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("BrojPitanja")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DatumOdrzavanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id_Predmet")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NazivTesta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProfesorID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Id_Predmet");
-
-                    b.HasIndex("ProfesorID");
-
-                    b.ToTable("Rokovi");
                 });
 
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Verifikacija", b =>
@@ -265,7 +187,7 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.Property<DateTime>("datum_izdavanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("referentId")
+                    b.Property<int>("referentId")
                         .HasColumnType("int");
 
                     b.Property<int>("studentId")
@@ -334,9 +256,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool?>("isPolozio")
-                        .HasColumnType("bit");
 
                     b.Property<int>("predmetId")
                         .HasColumnType("int");
@@ -512,24 +431,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Odgovor", b =>
-                {
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Pitanje", "Pitanje")
-                        .WithMany()
-                        .HasForeignKey("PitanjeID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Pitanje", b =>
-                {
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Rok", "Rok")
-                        .WithMany()
-                        .HasForeignKey("RokID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Prisustvo", b =>
                 {
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Cas", "Cas")
@@ -545,27 +446,13 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Rok", b =>
-                {
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Predmet", "Predmet")
-                        .WithMany()
-                        .HasForeignKey("Id_Predmet")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Profesor", "Profesor")
-                        .WithMany()
-                        .HasForeignKey("ProfesorID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Potvrda", b =>
                 {
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Referent.Models.Referent", "referent")
                         .WithMany()
                         .HasForeignKey("referentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", "student")
                         .WithMany()

@@ -1,0 +1,18 @@
+<app-profesor></app-profesor>
+<div style="position: absolute; width: 80%; top: 150px;  height: max-content; left: 10%;">
+  <table class="table table-light" style="position: absolute; width: 100%; text-align: center">
+    <thead>
+    <th>Ime i prezime</th>
+    <th>Obrisi</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of prisustva">
+      <td>{{p.student.ime}} {{p.student.prezime}}</td>
+      <td>
+        <button class="btn btn-danger" style="border-radius: 0" (click)="obrisi(p.id)">Obrisi</button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,11 @@
+#tabela{
+  position: absolute;
+  top: 130px;
+  text-align: center;
+  horiz-align: center;
+  width: 70%;
+  margin-left: 15%;
+  padding: 20px;
+  color: black;
+  border-radius: 10px;
+}

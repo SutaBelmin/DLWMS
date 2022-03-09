@@ -4,11 +4,11 @@ export class AutentifikacijaHelper {
   static setLoginInfo(x: LoginInformacije): void {
     if (x == null)
       x = new LoginInformacije();
-    localStorage.setItem("_Token", JSON.stringify(x));
+    localStorage.setItem("autentifikacija-token", JSON.stringify(x));
   }
 
   static getLoginInfo(): LoginInformacije {
-    let x = localStorage.getItem("_Token");
+    let x = localStorage.getItem("autentifikacija-token");
     if (x === "")
       return new LoginInformacije();
 

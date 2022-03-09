@@ -14,6 +14,11 @@ import { StudentAddComponent } from './StudentModule/Referent/student-add/studen
 import { StudentEditComponent } from './StudentModule/Referent/student-edit/student-edit.component';
 import {AutorizacijaLoginProvjera} from "./guards/AutorizacijaLoginProvjera";
 import {AutorizacijaProfesor} from "./guards/AutorizacijaProfesor";
+import { CasComponent } from './profesor/cas/cas.component';
+import { RokTestComponent } from './profesor/rok-test/rok-test.component';
+import { PrisustvoComponent } from './profesor/cas/prisustvo/prisustvo.component';
+import { PrisustvaPoCasuComponent } from './profesor/cas/prisustvo/prisustva-po-casu/prisustva-po-casu.component';
+import { PitanjaComponent } from './profesor/rok-test/pitanja/pitanja.component';
 import { ReferentPotvrdeComponent } from './StudentModule/Referent/referent-potvrde/referent-potvrde.component';
 import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde/student-potvrde.component';
 @NgModule({
@@ -27,6 +32,11 @@ import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde
     StudentsSearchComponent,
     StudentAddComponent,
     StudentEditComponent,
+    CasComponent,
+    RokTestComponent,
+    PrisustvoComponent,
+    PrisustvaPoCasuComponent,
+    PitanjaComponent,
     ReferentPotvrdeComponent,
     StudentPotvrdeComponent,
   ],
@@ -39,7 +49,12 @@ import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde
       {path: 'login', component: LoginComponent},
       {path: 'zaboravio_sifru', component: ZaboravioSifruComponent},
       {path: 'nova_sifra', component: NovaSifraComponent},
-      {path: 'profesor', component: ProfesorComponent},
+      {path: 'profesor', component: ProfesorComponent, canActivate: [AutorizacijaProfesor]},
+      {path: 'profesor/cas', component: CasComponent, canActivate: [AutorizacijaProfesor]},
+      {path: 'profesor/cas/prisustvo/:naziv/:predmetID/:id', component: PrisustvoComponent, canActivate: [AutorizacijaProfesor]},
+      {path: 'profesor/rok_test', component: RokTestComponent, canActivate: [AutorizacijaProfesor]},
+      {path: 'profesor/cas/prisustvo/pregled/:casID', component: PrisustvaPoCasuComponent, canActivate: [AutorizacijaProfesor]},
+      {path: 'profesor/rok_test/pitanja/:rokID', component: PitanjaComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'student', component: StudentsSearchComponent},
       {path: 'student/add', component: StudentAddComponent},
       {path: 'student/:id', component: StudentEditComponent},

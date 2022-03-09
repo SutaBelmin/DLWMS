@@ -1,0 +1,23 @@
+<app-profesor></app-profesor>
+<button class="btn btn-warning" style="border-radius: 0; position: absolute; top: 100px; right: 155px;" (click)="pregled()">Pregledaj prisustva</button>
+<div style="position: absolute; width: 80%; top: 150px;  height: max-content; left: 10%;">
+  <table class="table table-light" style="position: absolute; width: 100%; text-align: center">
+    <thead>
+    <th>Student ID</th>
+    <th>Ime i prezime</th>
+    <th>Prisustvo</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of studenti">
+      <td>{{s.studentId}}</td>
+      <td>{{s.student.ime}} {{s.student.prezime}}</td>
+      <td>
+        <button (click)="Dodaj(s.studentId, s.student.ime)" class="btn btn-primary"
+                style="border-radius: 0; margin-right: 5px;">Dodaj
+        </button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>

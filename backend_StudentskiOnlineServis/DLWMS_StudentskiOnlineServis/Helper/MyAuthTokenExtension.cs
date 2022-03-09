@@ -50,7 +50,7 @@ namespace Studentski_online_servis.Helper
 
         public static string GetMyAuthToken(this HttpContext httpContext)
         {
-            string token = httpContext.Request.Headers["Token"];
+            string token = httpContext.Request.Headers["autentifikacija-token"];
             return token;
         }
     }

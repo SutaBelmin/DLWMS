@@ -1,0 +1,6 @@
+#Okvir{
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  width: calc(100% - 60px);
+}

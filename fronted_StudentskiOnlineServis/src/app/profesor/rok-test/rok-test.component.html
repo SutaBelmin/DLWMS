@@ -1,0 +1,47 @@
+<app-profesor></app-profesor>
+<div id="tabela">
+  <h2>Sljedeći rokovi:</h2>
+  <table class="table" style="color: black;">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Predmet</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Satnica održavanja</th>
+      <th scope="col">Test pitanja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rok of SadasnjiRokovi">
+      <td>{{rok.predmet.naziv}}</td>
+      <td>{{rok.datumOdrzavanja.toString().substr(0, 10)}}</td>
+      <td>{{rok.datumOdrzavanja.toString().substr(11, 5)}}</td>
+      <td><button (click)="pitanja(rok.id)" class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">Pitanja</button></td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <hr style="color: blue;">
+  <br>
+  <h2>Moji rokovi do sada:</h2>
+  <table class="table" style="color: black;">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Predmet</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Satnica održavanja</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rok of ProsliRokovi">
+      <td>{{rok.predmet.naziv}}</td>
+      <td>{{rok.datumOdrzavanja.toString().substr(0, 10)}}</td>
+      <td>{{rok.datumOdrzavanja.toString().substr(11, 5)}}</td>
+      <td><button (click)="pitanja(rok.id)"  class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">TEST-PITANJA</button></td>
+      <td><button  class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">REZULTATI</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

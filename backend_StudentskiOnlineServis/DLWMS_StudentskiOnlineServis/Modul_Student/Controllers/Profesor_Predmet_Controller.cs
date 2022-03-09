@@ -2,6 +2,7 @@
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             _baza.SaveChanges();
 
             return Ok();
+        }
+        [HttpGet]
+        public object GetProfesorPredmet(int ProfesorID)
+        {
+            return _baza.Profesor_Predmet.Include(x=>x.predmet).Include(x=>x.profesor).Where(x => x.profesorId == ProfesorID).ToList();
         }
     }
 }
