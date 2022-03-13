@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Student} from "../../_models/Student";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {MojConfig} from "../../../MyConfig";
+
+declare function porukaSuccess(s:string):any;
 
 @Component({
   selector: 'app-students-search',
@@ -23,15 +26,16 @@ export class StudentsSearchComponent implements OnInit {
   }
 
   getStudents(){
-    this.httpClient.get<Student[]>("https://dlwms-api.p2103.app.fit.ba/Student/GetAll").subscribe(x => {
+    this.httpClient.get<Student[]>(`${MojConfig.MyLocalHost}/Student/GetAll`).subscribe(x => {
       this.students = x;
       this.allStudent=x;
     });
   }
 
   delete(id: number){
-    this.httpClient.delete(`https://dlwms-api.p2103.app.fit.ba/Student/Delete/${id}`).subscribe(x => {
+    this.httpClient.delete(`${MojConfig.MyLocalHost}/Student/Delete/${id}`).subscribe(x => {
       this.getStudents();
+      porukaSuccess("Student uspješno obrisan");
     });
   }
 
@@ -44,7 +48,7 @@ export class StudentsSearchComponent implements OnInit {
 
   edit(id: number)
   {
-    this.router.navigateByUrl(`/student/${id}`);
+    this.router.navigateByUrl(`/referent/student/${id}`);
   }
 
 }

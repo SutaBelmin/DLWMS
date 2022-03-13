@@ -1,0 +1,26 @@
+.container
+{
+  width: 60%;
+  background-color: #b2b2b2;
+}
+
+.forma
+{
+  margin: auto;
+  width: 40%;
+}
+
+.razmak
+{
+  margin-bottom: 30px;
+}
+
+input
+{
+  width: 100%;
+}
+
+button
+{
+  width: 100px;
+}

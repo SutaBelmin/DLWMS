@@ -1,0 +1,33 @@
+<div class="container">
+
+  <div>
+    <button routerLink="/referent/predmeti/add">Dodaj novi predmet</button>
+  </div>
+  <br>
+
+  <table class="table table-warning">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Naziv</th>
+      <th>Oznaka</th>
+      <th>Godina</th>
+      <th>Akcija</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let p of predmeti">
+      <td>{{p.id}}</td>
+      <td>{{p.naziv}}</td>
+      <td>{{p.oznaka}}</td>
+      <td>{{p.godina}}</td>
+      <td>
+        <button (click)="delete(p.id)">Obrisi</button>
+        <button (click)="edit(p.id)">Edit</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

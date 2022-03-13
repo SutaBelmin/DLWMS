@@ -64,5 +64,20 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var predmet = _baza.Predmet
+                 .FirstOrDefault(x => x.Id == id);
+
+            if (predmet == null)
+                return BadRequest("pogresan ID");
+
+            _baza.Remove(predmet);
+
+            _baza.SaveChanges();
+            return Ok(predmet);
+        }
     }
 }

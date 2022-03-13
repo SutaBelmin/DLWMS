@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { ZaboravioSifruComponent } from './login/zaboravio-sifru/zaboravio-sifru.component';
 import { NovaSifraComponent } from './login/nova-sifra/nova-sifra.component';
 import { ProfesorComponent } from './profesor/profesor.component';
-import { NavMenuComponent } from './StudentModule/_components/nav-menu/nav-menu.component';
 import { StudentsSearchComponent } from './StudentModule/Referent/students-search/students-search.component';
 import { StudentAddComponent } from './StudentModule/Referent/student-add/student-add.component';
 import { StudentEditComponent } from './StudentModule/Referent/student-edit/student-edit.component';
@@ -21,6 +20,15 @@ import { PrisustvaPoCasuComponent } from './profesor/cas/prisustvo/prisustva-po-
 import { PitanjaComponent } from './profesor/rok-test/pitanja/pitanja.component';
 import { ReferentPotvrdeComponent } from './StudentModule/Referent/referent-potvrde/referent-potvrde.component';
 import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde/student-potvrde.component';
+import { RefNavComponent } from './StudentModule/Referent/ref-nav/ref-nav.component';
+import { ReferentComponent } from './StudentModule/Referent/referent.component';
+import { PredmetiSerachComponent } from './StudentModule/Referent/predmeti-serach/predmeti-serach.component';
+import { PredmetAddComponent } from './StudentModule/Referent/predmet-add/predmet-add.component';
+import { PredmetiEditComponent } from './StudentModule/Referent/predmeti-edit/predmeti-edit.component';
+import { StudentMainComponent } from './StudentModule/Student/student-main.component';
+import { StuNavComponent } from './StudentModule/Student/stu-nav/stu-nav.component';
+import { StudentPocetnaComponent } from './StudentModule/Student/student-pocetna/student-pocetna.component';
+import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled/potvrde-pregled.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +36,6 @@ import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde
     ZaboravioSifruComponent,
     NovaSifraComponent,
     ProfesorComponent,
-    NavMenuComponent,
     StudentsSearchComponent,
     StudentAddComponent,
     StudentEditComponent,
@@ -39,6 +46,15 @@ import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde
     PitanjaComponent,
     ReferentPotvrdeComponent,
     StudentPotvrdeComponent,
+    RefNavComponent,
+    ReferentComponent,
+    PredmetiSerachComponent,
+    PredmetAddComponent,
+    PredmetiEditComponent,
+    StudentMainComponent,
+    StuNavComponent,
+    StudentPocetnaComponent,
+    PotvrdePregledComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,12 +71,69 @@ import { StudentPotvrdeComponent } from './StudentModule/Student/student-potvrde
       {path: 'profesor/rok_test', component: RokTestComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/cas/prisustvo/pregled/:casID', component: PrisustvaPoCasuComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/rok_test/pitanja/:rokID', component: PitanjaComponent, canActivate: [AutorizacijaProfesor]},
-      {path: 'student', component: StudentsSearchComponent},
-      {path: 'student/add', component: StudentAddComponent},
-      {path: 'student/:id', component: StudentEditComponent},
+      {
+        path: 'referent',
+        component: ReferentComponent,
+        children:[
+          {
+            path: '',
+            redirectTo: 'student',
+            pathMatch: 'full'
+          },
+          {
+            path: 'potvrde',
+            component: ReferentPotvrdeComponent
+          },
+          {
+            path: 'student',
+            component: StudentsSearchComponent
+          },
+          {
+            path: 'student/add',
+            component: StudentAddComponent
+          },
+          {
+            path: 'student/:id',
+            component: StudentEditComponent
+          },
+          {
+            path: 'predmeti',
+            component: PredmetiSerachComponent
+          },
+          {
+            path: 'predmeti/add',
+            component: PredmetAddComponent
+          },
+          {
+            path: 'predmeti/edit/:id',
+            component: PredmetiEditComponent
+          },
+        ]
+      },
+      {
+        path: 'studentmain',
+        component: StudentMainComponent,
+        children:[
+          {
+            path: '',
+            redirectTo: 'studentpocetna',
+            pathMatch: 'full'
+          },
+          {
+            path: 'studentpocetna',
+            component: StudentPocetnaComponent
+          },
+          {
+            path: 'potvrdepregled',
+            component: PotvrdePregledComponent
+          },
+          {
+            path: 'studentpotvrde',
+            component: StudentPotvrdeComponent
+          },
 
-      {path: 'ref-potvrde', component: ReferentPotvrdeComponent},
-      {path: 'stu-potvrde', component: StudentPotvrdeComponent}
+        ]
+      }
 
     ]),
   ],

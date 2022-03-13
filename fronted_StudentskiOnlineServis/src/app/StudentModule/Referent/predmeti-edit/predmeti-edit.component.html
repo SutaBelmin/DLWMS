@@ -1,0 +1,25 @@
+<div class="container">
+
+  <form (ngSubmit)="save()" #predmetEditAddForm="ngForm" class="forma">
+
+  <div class="razmak">
+    <label>Naziv</label><br>
+    <input type="text" [(ngModel)]="this.predmet.naziv"  name="naziv" required>
+  </div>
+
+  <div class="razmak">
+    <label>Oznaka</label><br>
+    <input type="text" [(ngModel)]="this.predmet.oznaka" name="oznaka" required>
+  </div>
+
+  <div class="razmak">
+    <label>Godina</label><br>
+    <input type="number" [(ngModel)]="this.predmet.godina" name="godina" required>
+  </div>
+
+  <div class="razmak">
+    <button type="submit" [disabled]="!predmetEditAddForm.valid">Save</button>
+  </div>
+
+</form>
+</div>

@@ -1,0 +1,21 @@
+.container
+{
+  background-color: #b2b2b2;
+  width: 60%;
+}
+
+select
+{
+  width: 60%;
+}
+
+input
+{
+  width: 60%;
+  height: 100px;
+}
+
+button
+{
+  width: 100px;
+}

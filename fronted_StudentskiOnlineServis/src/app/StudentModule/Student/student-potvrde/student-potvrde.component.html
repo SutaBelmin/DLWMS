@@ -1,1 +1,28 @@
-<p>student-potvrde works!</p>
+<div class="container">
+
+  <div class="row justify-content-center p-2 ">
+    Odaberite svrhu:
+  </div>
+
+  <div class="row justify-content-center">
+    <select [(ngModel)]="this.odabranaSvrhaId">
+      <option *ngFor="let s of svrhe" [ngValue]="s.id">{{s.naziv}}</option>
+    </select>
+  </div>
+
+  <div class="row justify-content-center p-2">
+    Unesite opis:
+  </div>
+
+  <div class="row justify-content-center">
+    <input [(ngModel)]="opis">
+  </div>
+
+  <div class="row justify-content-end p-2">
+    <div class="col-4">
+      <button (click)="save()">Pošalji</button>
+    </div>
+  </div>
+
+</div>
+

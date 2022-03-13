@@ -4,6 +4,7 @@ export class LoginInformacije {
   isPermisijaProfesor:         boolean=false;
   isPermsijaAdmin:             boolean=false;
   isPermisijaReferent:             boolean=false;
+  isPermisijaStudent:             boolean=false;
 }
 
 export interface AutentifikacijaToken {

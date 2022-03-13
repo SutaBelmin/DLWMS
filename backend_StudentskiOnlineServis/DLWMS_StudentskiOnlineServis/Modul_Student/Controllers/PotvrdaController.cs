@@ -2,6 +2,8 @@
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Studentski_online_servis.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +24,26 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAll()
+        public ActionResult GetAll(int? studentId)
         {
-            var potvrde = _baza.Potvrda.ToList();
+            var potvrde = _baza.Potvrda
+                .Include(x => x.student)
+                .Include(x => x.svrha)
+                .AsQueryable();
 
-            return Ok(potvrde);
+            if (studentId.HasValue)
+            {
+                potvrde = potvrde.Where(x => x.studentId == studentId);
+            }
+
+            return Ok(potvrde.ToList());
         }
 
         [HttpPost]
         public ActionResult AddPotvrdu(AddPotvrdaVM x)
         {
             var potvrda = new Potvrda();
-            potvrda.studentId = x.studentId;
+            potvrda.studentId = HttpContext.GetLoginInfo().korisnickiNalog.student.ID;
             potvrda.svrhaId = x.svrhaId;
             potvrda.Opis = x.Opis;
 
@@ -41,6 +51,27 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             _baza.SaveChanges();
 
             return Ok();
+        }
+
+        [HttpPost("{id}")]
+        public ActionResult IzdajPotvrdu(int id)
+        {
+            var potvrda = _baza.Potvrda.Find(id);
+            potvrda.Izdata = true;
+            potvrda.referentId = HttpContext.GetLoginInfo().korisnickiNalog.referent.ID;
+            potvrda.datum_izdavanja = DateTime.Now;
+            
+            _baza.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public ActionResult GetSvrhe()
+        {
+            var svrhe = _baza.SvrhaPotvrde.ToList();
+
+            return Ok(svrhe);
         }
 
 

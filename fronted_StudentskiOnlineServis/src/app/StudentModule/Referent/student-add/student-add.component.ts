@@ -5,6 +5,8 @@ import {MojConfig} from "../../../MyConfig";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 
+declare function porukaSuccess(s:string):any;
+
 @Component({
   selector: 'app-student-add',
   templateUrl: './student-add.component.html',
@@ -40,7 +42,8 @@ export class StudentAddComponent implements OnInit {
   Save()
   {
     this.httpClient.post(MojConfig.DodajStudenta, this.Students).subscribe(x=>{
-      this.router.navigateByUrl("/student");
+      this.router.navigateByUrl("/referent/student");
+      porukaSuccess("Student uspješno dodat");
     })
   }
 

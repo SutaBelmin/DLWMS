@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-referent-potvrde',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReferentPotvrdeComponent implements OnInit {
 
-  constructor() { }
+  potvrde:any;
 
-  ngOnInit(): void {
+  constructor(private httpKlijent:HttpClient)
+  {
+
   }
 
+  ngOnInit(): void
+  {
+    this.getPotvrde();
+  }
+
+  getPotvrde()
+  {
+    this.httpKlijent.get(`http://localhost:59854/Potvrda/GetAll`).subscribe(x=>{
+      this.potvrde=x;
+    });
+  }
+
+  izdaj(id:any)
+  {
+    this.httpKlijent.post(`http://localhost:59854/Potvrda/IzdajPotvrdu/${id}`,{}).subscribe(x=>{
+      this.getPotvrde();
+    });
+  }
 }

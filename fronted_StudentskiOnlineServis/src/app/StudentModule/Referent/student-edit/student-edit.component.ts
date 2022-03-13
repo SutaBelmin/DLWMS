@@ -5,6 +5,8 @@ import {HttpClient} from "@angular/common/http";
 import {Student} from "../../_models/Student";
 import {MojConfig} from "../../../MyConfig";
 
+declare function porukaSuccess(s:string):any;
+
 @Component({
   selector: 'app-student-edit',
   templateUrl: './student-edit.component.html',
@@ -24,7 +26,7 @@ export class StudentEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpClient.get<Student>(`https://dlwms-api.p2103.app.fit.ba/Student/GetById/${this.id}`).subscribe(s =>{
+    this.httpClient.get<Student>(`${MojConfig.MyLocalHost}/Student/GetById/${this.id}`).subscribe(s =>{
       this.student.ime = s.ime;
       this.student.prezime = s.prezime;
       this.student.datum_rodjenja=s.datum_rodjenja;
@@ -52,7 +54,8 @@ export class StudentEditComponent implements OnInit {
 
   Save() {
     this.httpClient.post(`${MojConfig.EditujStudenta}/${this.id}`, this.student).subscribe(x=>{
-      this.router.navigateByUrl("/student");
+      this.router.navigateByUrl("/referent/student");
+      porukaSuccess("Student uspješno editovan");
     })
   }
 }

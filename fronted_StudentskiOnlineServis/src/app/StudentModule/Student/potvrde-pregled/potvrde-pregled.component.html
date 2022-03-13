@@ -1,26 +1,24 @@
 
 <div class="container">
 
+  <button routerLink="/studentmain/studentpotvrde">Nova potvrda</button>
+
   <table class="table table-warning">
     <tr>
-      <th>ID</th>
-      <th>Student</th>
-      <th>Opis</th>
       <th>Svrha</th>
+      <th>Opis</th>
       <th>Izdata</th>
-      <th>Izdaj</th>
+
     </tr>
     <tbody>
     <tr *ngFor="let p of potvrde">
-      <td>{{p.id}}</td>
-      <td>{{p.student.ime}} {{p.student.prezime}}</td>
-      <td>{{p.opis}}</td>
       <td>{{p.svrha.naziv}}</td>
+      <td>{{p.opis}}</td>
       <td>{{p.izdata}}</td>
-      <td><button *ngIf="p.izdata==false" (click)="izdaj(p.id)">Izdaj</button></td>
     </tr>
     </tbody>
   </table>
 
 </div>
+
 

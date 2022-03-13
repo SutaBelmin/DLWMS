@@ -46,7 +46,11 @@ export class LoginComponent implements OnInit {
           }
           if(x.isPermisijaReferent){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.route.navigateByUrl("/student");
+            this.route.navigateByUrl("/referent");
+          }
+          if(x.isPermisijaStudent){
+            AutentifikacijaHelper.setLoginInfo(x)
+            this.route.navigateByUrl("/studentmain");
           }
         } else {
           AutentifikacijaHelper.setLoginInfo(null)

@@ -1,3 +1,9 @@
+.container
+{
+  background-color: #b2b2b2;
+  width: 60%;
+}
+
 .razmak
 {
   margin-bottom: 30px;
@@ -11,5 +17,5 @@
 
 input, select
 {
-  width: 50%;
+  width: 100%;
 }
