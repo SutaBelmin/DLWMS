@@ -45,4 +45,23 @@ export class RokTestComponent implements OnInit {
       this.ProsliRokovi = x;
     }, error => porukaError("Greska prilikom preuzimanja sadasnjih rokova!"));
   }
+
+  ActivateTest(id:any) {
+    this.httpKlijent.post(MojConfig.MyLocalHost+"/Rok/ActivateTest?ID="+id, MojConfig.http_opcije()).subscribe(x=>{
+      porukaSuccess("Test je aktiviran");
+      this.ngOnInit();
+    }, error => porukaError("Greska pri aktivaciji"));
+  }
+
+  rezultati(id:any) {
+      this.route.navigate(["profesor/rok_test/rezultati/", id]);
+  }
+
+  DeactivateTest(id:any) {
+    this.httpKlijent.post(MojConfig.MyLocalHost+"/Rok/DeactivateTest?ID="+id, MojConfig.http_opcije()).subscribe(x=>{
+      porukaSuccess("Test je deaktiviran");
+      this.ngOnInit();
+    }, error => porukaError("Greska pri deaktivaciji"));
+
+  }
 }

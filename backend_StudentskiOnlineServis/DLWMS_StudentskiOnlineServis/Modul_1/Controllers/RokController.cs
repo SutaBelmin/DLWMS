@@ -17,6 +17,34 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
         {
             _dbContext = dbContext;
         }
+        [HttpGet]
+        public object GetActiveRokovi(int StudentID)
+        {
+            List<Rok_Student> uradjeniRokovi = _dbContext.OdgovoriNaPitanja.Where(x => x.StudentID == StudentID).ToList();
+            if (uradjeniRokovi.Count() == 0)
+                return _dbContext.Rokovi
+                    .Include(x => x.Predmet)
+                    .Where(x => x.Aktivan == true).ToList();
+            else
+            {
+                List<Rok> rokovi = _dbContext.Rokovi
+                    .Include(x => x.Predmet)
+                    .Where(x => x.Aktivan == true).ToList();
+                List<Rok> ForDelete = new List<Rok>();
+                foreach (Rok_Student RokStudent in uradjeniRokovi)
+                {
+                    foreach (Rok rok in rokovi)
+                    {
+                        if (RokStudent.RokID == rok.ID && RokStudent.StudentID == StudentID)
+                            ForDelete.Add(rok);
+                    }
+                }
+                foreach (Rok rok1 in ForDelete)
+                    rokovi.Remove(rok1);
+
+                return rokovi;
+            }
+        }
         public class RokVM
         {
 
@@ -35,7 +63,9 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
                 {
                     Id_Predmet = rok.PredmetID,
                     DatumOdrzavanja = rok.DatumOdrzavanja,
-                    ProfesorID = rok.ProfesorID
+                    ProfesorID = rok.ProfesorID,
+                    Aktivan = false,
+                    NazivTesta = "TEST"
                 };
                 _dbContext.Rokovi.Add(novi);
                 _dbContext.SaveChanges();
@@ -52,7 +82,26 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
                 .ToList();
         }
 
-
+        [HttpPost]
+        public ActionResult ActivateTest(int ID)
+        {
+            var rok = _dbContext.Rokovi.Where(x => x.ID == ID).FirstOrDefault();
+            if (rok == null)
+                return BadRequest("Ne postoji rok!");
+            rok.Aktivan = true;
+            _dbContext.SaveChanges();
+            return Ok(rok);
+        }
+        [HttpPost]
+        public ActionResult DeactivateTest(int ID)
+        {
+            var rok = _dbContext.Rokovi.Where(x => x.ID == ID).FirstOrDefault();
+            if (rok == null)
+                return BadRequest("Ne postoji rok!");
+            rok.Aktivan = false;
+            _dbContext.SaveChanges();
+            return Ok(rok);
+        }
         [HttpGet("{profesorID}")]
         public object GetProsleRokoveByIDProfesora(int profesorID)
         {
@@ -68,10 +117,10 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
             return _dbContext.Rokovi
                 .Include(x => x.Predmet)
                 .Include(x => x.Profesor)
-                .Where(x => x.ProfesorID == profesorID && DateTime.Now<x.DatumOdrzavanja)
+                .Where(x => x.ProfesorID == profesorID && DateTime.Now < x.DatumOdrzavanja)
                 .ToList();
         }
-       
+
         [HttpGet("{rokID}")]
         public bool GetRokDateByID(int rokID)
         {

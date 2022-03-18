@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220315135504_Chat")]
+    partial class Chat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,9 +128,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BrojTelefona")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -149,9 +148,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isTwoWayAuth")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");

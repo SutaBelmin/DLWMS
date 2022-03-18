@@ -27,3 +27,4 @@
 </div>
 <div class="alert alert-warning" role="alert" *ngIf="EnableAlert == true"> <span [innerText]="warn"></span>
 </div>
+<app-two-way *ngIf="TwoWay!=null" [Verifikacija]="TwoWay" [loginInfo]="loginInfo"></app-two-way>

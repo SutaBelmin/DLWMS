@@ -64,42 +64,9 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
             return $"{_vrsta} uspjesno dodat";
         }
         [HttpGet]
-        public object GetKorisnike(string? _VrstaKorisnika, string? Ime, string? Prezime)
+        public object GetKorisnike(int KorisnikID)
         {
-            if (_VrstaKorisnika != null)
-            {
-                if (_VrstaKorisnika.CompareTo("Profesor") == 0 || _VrstaKorisnika.CompareTo("profesor") == 0)
-                    NovaVrsta = VrstaKorisnika.Profesor;
-                else if (_VrstaKorisnika.CompareTo("Student") == 0 || _VrstaKorisnika.CompareTo("student") == 0)
-                    NovaVrsta = VrstaKorisnika.Student;
-                else if (_VrstaKorisnika.CompareTo("Referent") == 0 || _VrstaKorisnika.CompareTo("referent") == 0)
-                    NovaVrsta = VrstaKorisnika.Referent;
-
-
-                if (Ime != null && Prezime != null)
-                    return dLWMS_Db.Korisnici.Include(x=>x.Fakultet).Where(x =>
-                    (x.Vrsta_Korisnika == NovaVrsta && x.Ime.CompareTo(Ime) == 0 && x.Prezime.CompareTo(Prezime) == 0)).ToList();
-
-                if (Ime == null && Prezime != null)
-                    return dLWMS_Db.Korisnici.Include(x => x.Fakultet).Where(x => x.Vrsta_Korisnika == NovaVrsta && x.Prezime.CompareTo(Prezime) == 0).ToList();
-
-                if (Ime == null && Prezime == null)
-                    return dLWMS_Db.Korisnici.Include(x => x.Fakultet).Where(x => x.Vrsta_Korisnika == NovaVrsta).ToList();
-
-                if (Ime != null && Prezime == null)
-                    return dLWMS_Db.Korisnici.Include(x => x.Fakultet).Where(x => x.Vrsta_Korisnika == NovaVrsta && x.Ime.CompareTo(Ime) == 0).ToList();
-            }
-
-            if (Ime == null && Prezime != null)
-                return dLWMS_Db.Korisnici.Include(x => x.Fakultet).Where(x => x.Prezime.CompareTo(Prezime) == 0).ToList();
-
-            if (Ime != null && Prezime == null)
-                return dLWMS_Db.Korisnici.Include(x => x.Fakultet).Where(x => x.Ime.CompareTo(Ime) == 0).ToList();
-
-            if (Ime != null && Prezime != null)
-                return dLWMS_Db.Korisnici.Include(x => x.Fakultet).Where(x => x.Ime.CompareTo(Ime) == 0 && x.Prezime.CompareTo(Prezime) == 0).ToList();
-
-            return dLWMS_Db.Korisnici.Include(x => x.Fakultet).ToList();
+            return dLWMS_Db.KorisnickiNalog.Where(x=>x.ID!=KorisnikID).ToList();
         }
     }
 

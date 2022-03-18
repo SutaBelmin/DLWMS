@@ -15,7 +15,10 @@
       <td>{{rok.predmet.naziv}}</td>
       <td>{{rok.datumOdrzavanja.toString().substr(0, 10)}}</td>
       <td>{{rok.datumOdrzavanja.toString().substr(11, 5)}}</td>
-      <td><button (click)="pitanja(rok.id)" class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">Pitanja</button></td>
+      <td><button (click)="pitanja(rok.id)" class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">Pitanja</button>
+        <button *ngIf="rok.aktivan ==false" (click)="ActivateTest(rok.id)" class="btn btn-danger" style="margin-left: 5px;border-radius: 0; padding-top: 0; padding-bottom: 0;">Aktiviraj test</button>
+      <button *ngIf="rok.aktivan==true" (click)="DeactivateTest(rok.id)" class="btn btn-danger" style="margin-left: 5px;border-radius: 0; padding-top: 0; padding-bottom: 0;">Deaktiviraj test</button></td>
+
     </tr>
     </tbody>
   </table>
@@ -40,7 +43,7 @@
       <td>{{rok.datumOdrzavanja.toString().substr(0, 10)}}</td>
       <td>{{rok.datumOdrzavanja.toString().substr(11, 5)}}</td>
       <td><button (click)="pitanja(rok.id)"  class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">TEST-PITANJA</button></td>
-      <td><button  class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">REZULTATI</button></td>
+      <td><button (click)="rezultati(rok.id)" class="btn btn-danger" style="border-radius: 0; padding-top: 0; padding-bottom: 0;">REZULTATI</button></td>
     </tr>
     </tbody>
   </table>

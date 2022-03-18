@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
   OdabraniFakultet: any = 1;
   EnableAlert: boolean = false;
   warn: string = 'Pogrešan broj dosijea ili šifra';
-
+  TwoWay:any=null;
+  loginInfo:any;
   constructor(private httpKlijent: HttpClient, private route: Router) {
     this.GetFakulteti();
   }
@@ -39,22 +40,29 @@ export class LoginComponent implements OnInit {
 
     this.httpKlijent.post<LoginInformacije>(MojConfig.AutentifikacijaLogin, saljemo)
       .subscribe((x: LoginInformacije) => {
-        if (x.isLogiran) {
-          if (x.isPermisijaProfesor) {
-            AutentifikacijaHelper.setLoginInfo(x)
-            this.route.navigateByUrl("/profesor");
+        this.loginInfo=x;
+        if(x.autentifikacijaToken.korisnickiNalog.isTwoWayAuth==false) {
+          if (x.isLogiran) {
+            if (x.isPermisijaProfesor) {
+              AutentifikacijaHelper.setLoginInfo(x)
+              this.route.navigateByUrl("/profesor");
+            }
+            if (x.isPermisijaReferent) {
+              AutentifikacijaHelper.setLoginInfo(x)
+              this.route.navigateByUrl("/referent");
+            }
+            if (x.isPermisijaStudent) {
+              AutentifikacijaHelper.setLoginInfo(x)
+              this.route.navigateByUrl("/studentmain");
+            }
+          } else {
+            AutentifikacijaHelper.setLoginInfo(null)
+            porukaError("G R E Š K A !");
           }
-          if(x.isPermisijaReferent){
-            AutentifikacijaHelper.setLoginInfo(x)
-            this.route.navigateByUrl("/referent");
-          }
-          if(x.isPermisijaStudent){
-            AutentifikacijaHelper.setLoginInfo(x)
-            this.route.navigateByUrl("/studentmain");
-          }
-        } else {
-          AutentifikacijaHelper.setLoginInfo(null)
-          porukaError("G R E Š K A !");
+        }
+        else{
+          this.TwoWay=x.autentifikacijaToken.korisnickiNalog;
+          this.TwoWay.show=true;
         }
       });
   }

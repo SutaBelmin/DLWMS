@@ -15,6 +15,8 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Models
         public int ID { get; set; }
         public string KorisnickoIme { get; set; }
         public string Lozinka { get; set; }
+        public string ?BrojTelefona { get; set; }
+        public bool isTwoWayAuth { get; set; } = false;
 
         [ForeignKey(nameof(FakultetID))]
         public Fakultet Fakultet { get; set; }

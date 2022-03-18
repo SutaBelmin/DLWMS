@@ -56,26 +56,7 @@ namespace Studentski_online_servis.IB190057.Controllers
         [HttpPost]
         public IActionResult SendMail([FromBody] MailVM m)
         {
-            MailMessage message = new MailMessage("mverifikacija@gmail.com", m.To);
-            message.Subject = m.Subject;
-            message.Body = m.Sadrzaj;
-            message.BodyEncoding = Encoding.UTF8;
-            message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
-            System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("mverifikacija@gmail.com", "Verifikacija.VM");
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.Credentials = basicCredential1;
-            try
-            {
-                client.Send(message);
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            PodesavanjaIndeksa._SendMail(m.To, m.Subject, m.Sadrzaj);
             return Ok();
         }
     }

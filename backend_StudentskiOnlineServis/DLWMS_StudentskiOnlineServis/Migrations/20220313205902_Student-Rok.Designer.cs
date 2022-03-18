@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220313205902_Student-Rok")]
+    partial class StudentRok
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,34 +45,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasIndex("KorisnickiNalogId");
 
                     b.ToTable("AutentifikacijaToken");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.CHAT", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("datumPoruke")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("korisnik1_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("korisnik2_ID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("sadrzaj")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("korisnik1_ID");
-
-                    b.HasIndex("korisnik2_ID");
-
-                    b.ToTable("Poruke");
                 });
 
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Cas", b =>
@@ -126,9 +100,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BrojTelefona")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,9 +122,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.Property<bool>("isAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("isTwoWayAuth")
-                        .HasColumnType("bit");
-
                     b.HasKey("ID");
 
                     b.HasIndex("FakultetID");
@@ -161,31 +129,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.ToTable("KorisnickiNalog");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("KorisnickiNalog");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Ocjena", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("RokID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("_Ocjena")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RokID");
-
-                    b.HasIndex("StudentID");
-
-                    b.ToTable("Ocjene");
                 });
 
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Odgovor", b =>
@@ -577,21 +520,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.CHAT", b =>
-                {
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog", "korisnik1")
-                        .WithMany()
-                        .HasForeignKey("korisnik1_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog", "korisnik2")
-                        .WithMany()
-                        .HasForeignKey("korisnik2_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Cas", b =>
                 {
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Predmet", "Predmet")
@@ -612,21 +540,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Fakultet", "Fakultet")
                         .WithMany()
                         .HasForeignKey("FakultetID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.Ocjena", b =>
-                {
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Rok", "rok")
-                        .WithMany()
-                        .HasForeignKey("RokID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", "student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

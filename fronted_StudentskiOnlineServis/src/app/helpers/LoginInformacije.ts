@@ -26,6 +26,7 @@ export interface KorisnickiNalog {
   fakultetEmail:      string;
   isProfesor:         boolean;
   isAdmin:            boolean;
+  isTwoWayAuth:       boolean;
 }
 export interface Fakultet{
   id:                 number;

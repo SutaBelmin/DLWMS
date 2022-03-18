@@ -1,0 +1,18 @@
+<div *ngIf="Verifikacija!=null && Verifikacija.show==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel"
+     aria-modal="true" role="dialog" style="display: block;   box-shadow: 5px 10px 8px 10px #888888;
+">
+  <div class="modal-dialog" style="position:absolute; right: 34%; top: -20px; width: 40%;   box-shadow: 5px 10px 8px 10px #888888;
+">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="margin-top: 4px;">Verifikacijski kod:</h5>
+        <input class="text-info" [(ngModel)]="key">
+        <button type="button" class="btn-close" aria-label="Close" (click)="Verifikacija.show=false;"></button>
+      </div>
+      <div class="modal-footer" style=" justify-content: flex-start;">
+        <button type="button" class="btn btn-warning" (click)="Verifikacija.show=false;">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="checkKey()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,12 @@ import { StudentMainComponent } from './StudentModule/Student/student-main.compo
 import { StuNavComponent } from './StudentModule/Student/stu-nav/stu-nav.component';
 import { StudentPocetnaComponent } from './StudentModule/Student/student-pocetna/student-pocetna.component';
 import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled/potvrde-pregled.component';
+import { TestComponent } from './StudentModule/Student/test/test.component';
+import { RezultatiComponent } from './profesor/rok-test/rezultati/rezultati.component';
+import { ChatComponent } from './chat/chat.component';
+import {AutorizacijaStudent} from "./guards/AutorizacijaStudent";
+import {AutorizacijaReferent} from "./guards/AutorizacijaReferent";
+import { TwoWayComponent } from './login/two-way/two-way.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +61,10 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
     StuNavComponent,
     StudentPocetnaComponent,
     PotvrdePregledComponent,
+    TestComponent,
+    RezultatiComponent,
+    ChatComponent,
+    TwoWayComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,9 +81,11 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
       {path: 'profesor/rok_test', component: RokTestComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/cas/prisustvo/pregled/:casID', component: PrisustvaPoCasuComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/rok_test/pitanja/:rokID', component: PitanjaComponent, canActivate: [AutorizacijaProfesor]},
+      {path:'profesor/rok_test/rezultati/:rokID', component: RezultatiComponent, canActivate: [AutorizacijaProfesor]},
+      {path:'chat', component: ChatComponent, canActivate: [AutorizacijaLoginProvjera]},
       {
         path: 'referent',
-        component: ReferentComponent,
+        component: ReferentComponent, canActivate:[AutorizacijaReferent],
         children:[
           {
             path: '',
@@ -82,8 +94,7 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
           },
           {
             path: 'potvrde',
-            component: ReferentPotvrdeComponent
-          },
+            component: ReferentPotvrdeComponent},
           {
             path: 'student',
             component: StudentsSearchComponent
@@ -107,13 +118,14 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
           {
             path: 'predmeti/edit/:id',
             component: PredmetiEditComponent
-          },
+          }
         ]
       },
       {
         path: 'studentmain',
-        component: StudentMainComponent,
+        component: StudentMainComponent,canActivate:[AutorizacijaStudent],
         children:[
+          {path: 'test', component: TestComponent},
           {
             path: '',
             redirectTo: 'studentpocetna',
@@ -139,7 +151,9 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
   ],
   providers: [
     AutorizacijaProfesor,
-    AutorizacijaLoginProvjera
+    AutorizacijaLoginProvjera,
+    AutorizacijaReferent,
+    AutorizacijaStudent
   ],
   bootstrap: [AppComponent]
 })
