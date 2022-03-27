@@ -1,0 +1,16 @@
+.container
+{
+  width: 60%;
+  background-color: #b2b2b2;
+}
+
+input
+{
+  width:60%;
+  height: 100px;
+}
+
+button
+{
+  width: 100px;
+}

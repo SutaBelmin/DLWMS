@@ -2,6 +2,8 @@
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Studentski_online_servis.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,19 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             _baza.SaveChanges();
 
             return Ok();
+        }
+
+        [HttpGet]
+        public ActionResult GetListUspjeh()
+        {
+            var studId = HttpContext.GetLoginInfo().korisnickiNalog.student.ID;
+            var uspjeh = _baza.Uspjeh
+                .Include(x => x.student_predmet)
+                .ThenInclude(x => x.predmet)
+                .Where(x => x.student_predmet.studentId == studId)
+                .ToList();
+
+            return Ok(uspjeh);
         }
     }
 }

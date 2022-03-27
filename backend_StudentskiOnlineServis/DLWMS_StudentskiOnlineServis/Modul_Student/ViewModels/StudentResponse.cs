@@ -15,5 +15,8 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels
         public Fakultet Fakultet { get; set; }
         public int korisnickiNalogID { get; set; }
         public KorisnickiNalog korisnickiNalog { get; set; }
+        public int CijenaSkolarine { get; set; }
+
+        
     }
 }

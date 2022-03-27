@@ -3,4 +3,24 @@
   width: 60%;
   background-color: #b2b2b2;
   height: 600px;
+  position: relative;
+}
+
+.my-class
+{
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+}
+
+.my-row
+{
+ position: relative;
+}
+
+.inp
+{
+
+  right: 20px;
+  position: absolute;
 }

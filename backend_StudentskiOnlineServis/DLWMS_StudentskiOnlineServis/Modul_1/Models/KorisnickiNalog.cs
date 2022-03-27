@@ -1,6 +1,7 @@
 ﻿using DLWMS_StudentskiOnlineServis.Modul_1.ViewModels;
 using DLWMS_StudentskiOnlineServis.Modul_Referent.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
+using DLWMS_StudentskiOnlineServis.Modul_Student.Modul_Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,7 +25,8 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Models
         [JsonIgnore]
         public Profesor Profesor => this as Profesor;
         public bool isProfesor => Profesor != null;
-        public bool isAdmin { get; set; }
+
+        //public bool isAdmin { get; set; }
 
         [JsonIgnore]
         public Student student => this as Student;
@@ -33,6 +35,10 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Models
         [JsonIgnore]
         public Referent referent => this as Referent;
         public bool isReferent => referent != null;
+
+        [JsonIgnore]
+        public Admin admin => this as Admin;
+        public bool isAdmin => admin != null;
 
     }
 }

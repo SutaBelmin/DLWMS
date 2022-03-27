@@ -15,4 +15,5 @@ export interface Student {
   korisnickiNalogID: number;
   korisnickiNalog: KorisnickiNalog;
 
+  cijenaSkolarine: number;
 }

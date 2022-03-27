@@ -10,5 +10,6 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Models
         public DateTime DatumRodjenja { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
+        public int CijenaSkolarine { get; set; }
     }
 }

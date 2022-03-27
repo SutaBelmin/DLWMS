@@ -1,6 +1,7 @@
 ﻿using DLWMS_StudentskiOnlineServis.Modul_1.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Referent.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
+using DLWMS_StudentskiOnlineServis.Modul_Student.Modul_Admin.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -22,6 +23,9 @@ namespace DLWMS_StudentskiOnlineServis.Data
         public DbSet<Uspjeh> Uspjeh { get; set; }
         public DbSet<Potvrda> Potvrda { get; set; }
         public DbSet<SvrhaPotvrde> SvrhaPotvrde { get; set; }
+        public DbSet<Greska> Greska { get; set; }
+        public DbSet<Forum> Forum { get; set; }
+        public DbSet<Admin> Admin { get; set; }
         public DbSet<Cas> Casovi { get; set; }
         public DbSet<Prisustvo> Prisustva { get; set; }
         public DbSet<Rok> Rokovi { get; set; }

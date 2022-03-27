@@ -29,6 +29,10 @@ import { StudentMainComponent } from './StudentModule/Student/student-main.compo
 import { StuNavComponent } from './StudentModule/Student/stu-nav/stu-nav.component';
 import { StudentPocetnaComponent } from './StudentModule/Student/student-pocetna/student-pocetna.component';
 import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled/potvrde-pregled.component';
+import { PrijavaGreskeComponent } from './StudentModule/prijava-greske/prijava-greske.component';
+import { AdminPocetnaComponent } from './StudentModule/Admin/admin-pocetna/admin-pocetna.component';
+import { UspjehComponent } from './StudentModule/Student/uspjeh/uspjeh.component';
+import { ForumComponent } from './StudentModule/forum/forum.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +59,10 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
     StuNavComponent,
     StudentPocetnaComponent,
     PotvrdePregledComponent,
+    PrijavaGreskeComponent,
+    AdminPocetnaComponent,
+    UspjehComponent,
+    ForumComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +79,7 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
       {path: 'profesor/rok_test', component: RokTestComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/cas/prisustvo/pregled/:casID', component: PrisustvaPoCasuComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/rok_test/pitanja/:rokID', component: PitanjaComponent, canActivate: [AutorizacijaProfesor]},
+
       {
         path: 'referent',
         component: ReferentComponent,
@@ -131,10 +140,19 @@ import { PotvrdePregledComponent } from './StudentModule/Student/potvrde-pregled
             path: 'studentpotvrde',
             component: StudentPotvrdeComponent
           },
+          {
+            path: 'uspjeh',
+            component: UspjehComponent
+          },
 
+          {
+            path:'forum',
+            component:ForumComponent
+          }
         ]
-      }
-
+      },
+      {path:'admin',component:AdminPocetnaComponent},
+      {path:'greska',component:PrijavaGreskeComponent}
     ]),
   ],
   providers: [

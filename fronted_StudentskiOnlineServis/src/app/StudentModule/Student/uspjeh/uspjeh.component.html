@@ -1,0 +1,18 @@
+<div class="container">
+
+  <table class="table table-warning">
+    <thead>
+    <tr>
+      <th>Naziv predmeta</th>
+      <th>Ocjena</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let u of uspjeh">
+      <td>{{u.student_predmet.predmet.naziv}}</td>
+      <td>{{u.ocjena}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

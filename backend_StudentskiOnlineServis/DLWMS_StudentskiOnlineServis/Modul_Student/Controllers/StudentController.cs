@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Studentski_online_servis.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,6 +82,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
                 Fakultet = student.Fakultet,
                 fakultetID = student.FakultetID,
                 slika_studenta = student.slika_studenta,
+                CijenaSkolarine=student.CijenaSkolarine,
                 korisnickiNalog = new KorisnickiNalog
                 {
                     ID = student.ID,
@@ -88,6 +90,25 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
                 }
             };
         }
+
+        [HttpGet]
+        public ActionResult GetStudent()
+        {
+            var id= HttpContext.GetLoginInfo().korisnickiNalog.student.ID;
+            var student = _baza.Studenti.Find(id);
+
+            var result = _baza.Uspjeh
+                .Include(x => x.student_predmet)
+                .Where(x => x.student_predmet.studentId == id)
+                      .Average(x => x.ocjena);
+
+            return Ok(new StudentInfoResponse 
+            {
+                 skolarina=student.CijenaSkolarine,
+                 prosjek= result
+            });
+        }
+
 
         [HttpGet]
         public List<StudentResponse> GetAll(int id)
@@ -105,6 +126,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
                     Fakultet = student.Fakultet,
                     fakultetID = student.FakultetID,
                     slika_studenta = student.slika_studenta,
+                    CijenaSkolarine=student.CijenaSkolarine,
                     korisnickiNalog = new KorisnickiNalog
                     {
                         ID = student.ID,
@@ -174,7 +196,16 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             return Ok(result);
         }
 
+        [HttpPost("{id}")]
+        public ActionResult EvidentirajSkolarinu(int id, int cijena)
+        {
+            var student = _baza.Studenti.FirstOrDefault(x => x.ID == id);
+            student.CijenaSkolarine = cijena;
 
+            _baza.SaveChanges();
+
+            return Ok();
+        }
 
     }
 }

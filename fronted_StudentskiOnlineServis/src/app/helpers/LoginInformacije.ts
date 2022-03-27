@@ -2,7 +2,7 @@ export class LoginInformacije {
   autentifikacijaToken:        AutentifikacijaToken=null;
   isLogiran:                   boolean=false;
   isPermisijaProfesor:         boolean=false;
-  isPermsijaAdmin:             boolean=false;
+  isPermisijaAdmin:             boolean=false;
   isPermisijaReferent:             boolean=false;
   isPermisijaStudent:             boolean=false;
 }

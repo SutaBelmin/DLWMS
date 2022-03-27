@@ -1,0 +1,28 @@
+<div class="container">
+
+  <br>
+  <div>
+    <input [(ngModel)]="pitanje"><button (click)="addPitanje()">Dodaj pitanje</button>
+  </div>
+
+  <br>
+  <table class="table table-warning">
+    <thead>
+    <tr>
+      <th>Pitanje</th>
+      <th>Odgovor</th>
+      <th>Akcija</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let f of forum;let i = index">
+      <td>{{f.pitanje}}</td>
+      <td>{{f.odgovor}}</td>
+      <td><input [name]="'odgovor[{{i}}]'" [(ngModel)]="forum[i].odgovor">
+        <button *ngIf="f.questionerId!=logiraniKorisnik" (click)="addOdgovor(f.id)">Evidentiraj</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

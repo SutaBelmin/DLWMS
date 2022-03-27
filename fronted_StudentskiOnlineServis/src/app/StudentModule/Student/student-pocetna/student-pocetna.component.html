@@ -1,14 +1,36 @@
 <div class="container">
 
   <div class="row">
+    <div>
+      <button class="btn btn-primary float-end" (click)="LogOut()">Odjavi se</button>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-8">
       Obavijesti:
     </div>
+  </div>
 
-    <div class="col-4">
-      <label>Ukupni uspjeh:</label>
+  <div class="my-row">
+   <div class="inp">
+     <label>Ukupni uspjeh:</label>
+     <br>
+     <input [value]="student?.prosjek">
+   </div>
+  </div>
+
+  <br><br><br>
+  <div class="my-row">
+    <div class="inp">
+      <label>Školarina:</label>
       <br>
-      <input>
+      <input [value]="student.skolarina">
     </div>
   </div>
+
+  <div class="my-class">
+    <a routerLink="/greska">Prijava greške</a>
+  </div>
+
 </div>

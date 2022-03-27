@@ -40,15 +40,19 @@ export class LoginComponent implements OnInit {
     this.httpKlijent.post<LoginInformacije>(MojConfig.AutentifikacijaLogin, saljemo)
       .subscribe((x: LoginInformacije) => {
         if (x.isLogiran) {
-          if (x.isPermisijaProfesor) {
+          if(x.isPermisijaAdmin){
+            AutentifikacijaHelper.setLoginInfo(x)
+            this.route.navigateByUrl("/admin");
+          }
+          else if (x.isPermisijaProfesor) {
             AutentifikacijaHelper.setLoginInfo(x)
             this.route.navigateByUrl("/profesor");
           }
-          if(x.isPermisijaReferent){
+          else if(x.isPermisijaReferent){
             AutentifikacijaHelper.setLoginInfo(x)
             this.route.navigateByUrl("/referent");
           }
-          if(x.isPermisijaStudent){
+          else if(x.isPermisijaStudent){
             AutentifikacijaHelper.setLoginInfo(x)
             this.route.navigateByUrl("/studentmain");
           }

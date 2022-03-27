@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
 import {MojConfig} from "../../../MyConfig";
-import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-student-pocetna',
-  templateUrl: './student-pocetna.component.html',
-  styleUrls: ['./student-pocetna.component.css']
+  selector: 'app-admin-pocetna',
+  templateUrl: './admin-pocetna.component.html',
+  styleUrls: ['./admin-pocetna.component.css']
 })
-export class StudentPocetnaComponent implements OnInit {
+export class AdminPocetnaComponent implements OnInit {
 
-  student:any;
+  greske:any;
+
+  token:any=localStorage.getItem('_Token');
 
   constructor(private httpKlijent:HttpClient, private router:Router)
   {
@@ -20,19 +21,18 @@ export class StudentPocetnaComponent implements OnInit {
 
   ngOnInit(): void
   {
-    this.getStudent();
+    this.getGreske();
   }
 
-  getStudent()
+  getGreske()
   {
-    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Student/GetStudent`, MojConfig.http_opcije()).subscribe(x=>{
-      this.student=x;
+    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Greska/GetAll`).subscribe(x=>{
+      this.greske=x;
     });
   }
 
   LogOut()
   {
-
     this.httpKlijent.delete(MojConfig.AutentifikacijaLogOut, MojConfig.http_opcije()).subscribe(x=> {
       localStorage.removeItem('_Token');
       this.router.navigateByUrl('/login')

@@ -11,6 +11,16 @@
     <Compile Remove="Migrations\20220118172020_StudentKorisnik.Designer.cs" />
     <Compile Remove="Migrations\20220306124252_rokovi.cs" />
     <Compile Remove="Migrations\20220306124252_rokovi.Designer.cs" />
+    <Compile Remove="Migrations\20220313172252_Greska.cs" />
+    <Compile Remove="Migrations\20220313172252_Greska.Designer.cs" />
+    <Compile Remove="Migrations\20220313172857_GreskaDateTime.cs" />
+    <Compile Remove="Migrations\20220313172857_GreskaDateTime.Designer.cs" />
+    <Compile Remove="Migrations\20220313173103_DateTime.cs" />
+    <Compile Remove="Migrations\20220313173103_DateTime.Designer.cs" />
+    <Compile Remove="Migrations\20220320101039_Gresk.cs" />
+    <Compile Remove="Migrations\20220320101039_Gresk.Designer.cs" />
+    <Compile Remove="Migrations\20220320101518_AddTableGreska.cs" />
+    <Compile Remove="Migrations\20220320101518_AddTableGreska.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

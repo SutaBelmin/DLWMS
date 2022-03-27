@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {MojConfig} from "../../../MyConfig";
 
 @Component({
   selector: 'app-referent-potvrde',
@@ -22,14 +23,14 @@ export class ReferentPotvrdeComponent implements OnInit {
 
   getPotvrde()
   {
-    this.httpKlijent.get(`http://localhost:59854/Potvrda/GetAll`).subscribe(x=>{
+    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Potvrda/GetAll`).subscribe(x=>{
       this.potvrde=x;
     });
   }
 
   izdaj(id:any)
   {
-    this.httpKlijent.post(`http://localhost:59854/Potvrda/IzdajPotvrdu/${id}`,{}).subscribe(x=>{
+    this.httpKlijent.post(`${MojConfig.MyLocalHost}/Potvrda/IzdajPotvrdu/${id}`,{}, MojConfig.http_opcije()).subscribe(x=>{
       this.getPotvrde();
     });
   }
