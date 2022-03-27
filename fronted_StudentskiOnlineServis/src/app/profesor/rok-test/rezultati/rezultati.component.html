@@ -1,0 +1,72 @@
+<app-profesor></app-profesor>
+<table *ngIf="prikaziStudente" class="table table-hover"
+       style="color: black; position: absolute; top: 100px; margin-left: 15%; margin-right:15%; width: 70%; text-align: center;">
+  <thead class="thead-light">
+  <tr>
+    <th scope="col">BROJ INDEKSA:</th>
+    <th scope="col">IME:</th>
+    <th scope="col">PREZIME:</th>
+    <th scope="col">POGLEDAJ REZULTATE:</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let rok of studenti">
+    <td>{{rok.broj_indeksa}}</td>
+    <td>{{rok.ime}}</td>
+    <td>{{rok.prezime}}</td>
+    <td>
+      <button class="btn btn-success" (click)="getRezultate(rok.id)">REZULTATI</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<!-- TABELA REZULTATA STUDENTA-->
+<table *ngIf="prikaziRezultateStudenta" class="table" style="position: absolute; top: 100px; width: 70%; margin-left: 15%;">
+  <thead>
+  <tr class="table-active">
+    <th scope="col" style="width: 100px;">#</th>
+    <th scope="col">Pitanje</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="table-secondary" *ngFor="let pitanje of Pitanja; let i = index">
+    <td>{{pitanje.indeks}}</td>
+    <td>
+        <textarea class="_in" rows="5" cols="50" disabled>{{pitanje.sadrzaj}}</textarea>
+
+      <table class="table" style="width: 100%;">
+        <thead>
+        <tr class="table-info">
+          <th scope="col">Ponuđeni</th>
+          <th scope="col">Tačan odgovor</th>
+          <th scope="col">Student zaokruzio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let odgovor of Odgovori">
+          <tr class="table-info" *ngIf="odgovor.odgovor.pitanjeID==pitanje.id">
+            <td><input disabled class="_in" value="{{odgovor.odgovor.sadrzajOdgovora}}"></td>
+            <td><input disabled type="checkbox" disabled class="_in" [(ngModel)]="odgovor.odgovor.tacan"></td>
+            <td><input disabled type="checkbox" disabled class="_in" [(ngModel)]="odgovor.studentZaokruzio"></td>
+          </tr>
+        </ng-container>
+
+
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+  <button class="btn btn-warning" style="position: relative; width: 250%;  top: 20px; bottom: 10px;" (click)="back()">VRATI SE KORAK UNAZAD</button>
+  <button class="btn btn-primary" style="position: relative; width: 250%;  top: 20px; bottom: 10px;" (click)="upisOcjene()">UPIŠI OCJENU</button>>
+
+  <label style="position: relative;  bottom: 20px; left: 950%;" *ngIf="IZNOS!=null">TAČNO ->{{IZNOS}}</label>
+  <br>
+</table>
+<div *ngIf="prikaziFormuZaUpis" style="color: white; position: absolute; padding: 20px; border-radius: 4px; background-color: lightslategray; top: 100px; width: 70%; height: 400px; margin-left:15%">
+  <h3 style="color: white">BROJ TAČNIH: {{IZNOS}}</h3>
+  <label>Upišite ocjenu: </label><input type="text" [(ngModel)]="ocjena" class="form-control" style="width: 50%;" aria-label="OCJENA" placeholder="OCJENA:">
+  <button class="btn btn-primary" (click)="upisi()" style="width: 50%; margin-top: 20px;">UPIŠI OCJENU</button>
+
+</div>

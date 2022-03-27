@@ -33,6 +33,12 @@ import { PrijavaGreskeComponent } from './StudentModule/prijava-greske/prijava-g
 import { AdminPocetnaComponent } from './StudentModule/Admin/admin-pocetna/admin-pocetna.component';
 import { UspjehComponent } from './StudentModule/Student/uspjeh/uspjeh.component';
 import { ForumComponent } from './StudentModule/forum/forum.component';
+import { TestComponent } from './StudentModule/Student/test/test.component';
+import { RezultatiComponent } from './profesor/rok-test/rezultati/rezultati.component';
+import { ChatComponent } from './chat/chat.component';
+import {AutorizacijaStudent} from "./guards/AutorizacijaStudent";
+import {AutorizacijaReferent} from "./guards/AutorizacijaReferent";
+import { TwoWayComponent } from './login/two-way/two-way.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +69,10 @@ import { ForumComponent } from './StudentModule/forum/forum.component';
     AdminPocetnaComponent,
     UspjehComponent,
     ForumComponent,
+    TestComponent,
+    RezultatiComponent,
+    ChatComponent,
+    TwoWayComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,10 +89,11 @@ import { ForumComponent } from './StudentModule/forum/forum.component';
       {path: 'profesor/rok_test', component: RokTestComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/cas/prisustvo/pregled/:casID', component: PrisustvaPoCasuComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/rok_test/pitanja/:rokID', component: PitanjaComponent, canActivate: [AutorizacijaProfesor]},
-
+      {path:'profesor/rok_test/rezultati/:rokID', component: RezultatiComponent, canActivate: [AutorizacijaProfesor]},
+      {path:'chat', component: ChatComponent, canActivate: [AutorizacijaLoginProvjera]},
       {
         path: 'referent',
-        component: ReferentComponent,
+        component: ReferentComponent, canActivate:[AutorizacijaReferent],
         children:[
           {
             path: '',
@@ -91,8 +102,7 @@ import { ForumComponent } from './StudentModule/forum/forum.component';
           },
           {
             path: 'potvrde',
-            component: ReferentPotvrdeComponent
-          },
+            component: ReferentPotvrdeComponent},
           {
             path: 'student',
             component: StudentsSearchComponent
@@ -116,13 +126,14 @@ import { ForumComponent } from './StudentModule/forum/forum.component';
           {
             path: 'predmeti/edit/:id',
             component: PredmetiEditComponent
-          },
+          }
         ]
       },
       {
         path: 'studentmain',
-        component: StudentMainComponent,
+        component: StudentMainComponent,canActivate:[AutorizacijaStudent],
         children:[
+          {path: 'test', component: TestComponent},
           {
             path: '',
             redirectTo: 'studentpocetna',
@@ -157,7 +168,9 @@ import { ForumComponent } from './StudentModule/forum/forum.component';
   ],
   providers: [
     AutorizacijaProfesor,
-    AutorizacijaLoginProvjera
+    AutorizacijaLoginProvjera,
+    AutorizacijaReferent,
+    AutorizacijaStudent
   ],
   bootstrap: [AppComponent]
 })

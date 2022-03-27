@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../../../MyConfig";
+import {AutentifikacijaToken} from "../../../helpers/LoginInformacije";
+import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
 
 declare function porukaSuccess(sadrzaj: string): any;
 
@@ -28,7 +30,10 @@ export class PitanjaComponent implements OnInit {
   private rokID: number;
   prikazi: boolean = false;
 
+  isProfesor:boolean=false;
   constructor(private httpKlijent: HttpClient, private route: Router, private router: ActivatedRoute) {
+    let autentifikacijaToken: AutentifikacijaToken = AutentifikacijaHelper.getLoginInfo().autentifikacijaToken;
+    this.isProfesor= autentifikacijaToken.korisnickiNalog.isProfesor;
   }
 
   ngOnInit(): void {
@@ -72,9 +77,9 @@ export class PitanjaComponent implements OnInit {
 
   DodajOdgovor(id: any, indeks: any) {
     let v;
-    if (this.NizTacnosti[indeks - 1].startsWith("false"))
+    if (this.NizTacnosti[indeks - 1]==false)
       v = false;
-    else if (this.NizTacnosti[indeks - 1].startsWith('true'))
+    else if (this.NizTacnosti[indeks - 1]==true)
       v = true;
     let saljemo = {'sadrzajOdgovora': this.NizOdgovora[indeks - 1], 'tacan': v, 'iD_Pitanja': id};
     this.httpKlijent.post(MojConfig.MyLocalHost + "/Test/AddOdgovor", saljemo).subscribe(X => {

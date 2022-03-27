@@ -22,7 +22,14 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
         {
             dlwms_db = dbContext;
         }
-
+        [HttpPost]
+        public ActionResult UpdateProfesorTwoStep(int id, bool TWA)
+        {
+            var p = dlwms_db.Profesori.Where(x => x.ID == id).FirstOrDefault();
+            p.isTwoWayAuth = TWA;
+            dlwms_db.SaveChanges();
+            return Ok(p);
+        }
         [HttpPost]
         public ActionResult<Profesor> DodajProfesora([FromBody] ProfesorVM NoviKorisnik)
         {

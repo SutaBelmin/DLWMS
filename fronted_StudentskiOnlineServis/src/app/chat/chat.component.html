@@ -1,0 +1,46 @@
+<app-profesor *ngIf="auth.korisnickiNalog.isProfesor"></app-profesor>
+<app-stu-nav *ngIf="auth.korisnickiNalog.isStudent"></app-stu-nav>
+<app-ref-nav *ngIf="auth.korisnickiNalog.isReferent"></app-ref-nav>
+<div
+  style="position: absolute; width: 80%; top: 100px; margin-left: 10%; height: 100%; background-color: lightsteelblue; border-radius: 4px;">
+  <table class="table table-hover" style="width: 20%; position: absolute; top: 50px; left: 2%;">
+    <thead>
+    <tr>
+      <td>Korisnici</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let k of korisnici">
+      <td (click)="otvoriChat(k)"> {{k.korisnickoIme}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div *ngIf="showMessages"
+       style="overflow: scroll;  overflow-x: hidden; position : relative;display: flex;flex-direction: column-reverse; bottom:0; width: 73%; top:2%; left: 25%; height: 77%; background-color: lightslategrey; border-radius: 2px;">
+    <table class="table"  style="text-align: center;width:100%;
+    table-layout:fixed; border: 1px solid lightslategrey">
+      <thead>
+      <tr>
+        <th style="width: 50%; height: max-content; ">ME</th>
+        <th style="width: 50%; height: max-content;  ">{{korisnickoIme}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let p of poruke">
+        <tr>
+          <td style="background-color: midnightblue; width: 50%; height: max-content; border-radius: 10px; color: white; white-space:pre-wrap; word-wrap:break-word; text-align: left" *ngIf="p.korisnik1_ID==korisnikID">{{p.sadrzaj}}</td>
+          <td style="width: 0%" *ngIf="p.korisnik2_ID!=korisnikID"></td>
+          <td style="width: 0%;" *ngIf="p.korisnik2_ID==korisnikID"></td>
+          <td style="width: 50%; background-color: #111111; border-radius: 10px; height: max-content; color: white; white-space:pre-wrap; word-wrap:break-word; text-align: left" *ngIf="p.korisnik2_ID==korisnikID">{{p.sadrzaj}}</td>
+        </tr>
+
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="showMessages"
+       style="position: absolute; width: 73%; top:80%; left: 25%; height: 18%; background-color: lightslategrey; border-radius: 2px;">
+  <textarea placeholder="Upisite poruku:" style="position: absolute; top: 10px; bottom: 20px; margin-left: 10px;" cols="80" rows="5" [(ngModel)]="message"></textarea>
+  <button class="btn-success" style="position: absolute; width: 20%; bottom: 20px; right: 8%;" (click)="sendMessage()">Pošalji poruku</button>
+  </div>
+</div>

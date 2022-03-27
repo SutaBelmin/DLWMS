@@ -1,11 +1,11 @@
 <div id="body">
   <nav style="width: 100%;">
     <ul>
-      <li><a>Obavijesti</a></li>
       <li><a routerLink="/profesor/rok_test">Rokovi | Testovi</a></li>
-      <li><a>Dokumenti</a></li>
       <li><a routerLink="/profesor/cas">Časovi</a></li>
+      <li><a routerLink="/chat">CHAT</a></li>
       <li><a>Forum</a></li>
+      <li><a>TWA <input type="checkbox" class="form-check-input" [(ngModel)]="Profesor.isTwoWayAuth" (change)="Change()" ></a> </li>
       <li id="Dl">Studentski online servis</li>
       <li id="Odjava"><a (click)="LogOutR()">Odjavi se</a></li>
     </ul>

@@ -1,8 +1,11 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_1.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Studentski_online_servis.Helper
@@ -36,6 +39,29 @@ namespace Studentski_online_servis.Helper
             }
             db.SaveChanges();
 
+        }
+        public static void _SendMail(string To, string Subject, string Sadrzaj)
+        {
+            MailMessage message = new MailMessage("mverifikacija@gmail.com", To);
+            message.Subject = Subject;
+            message.Body = Sadrzaj;
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+            System.Net.NetworkCredential basicCredential1 = new
+            System.Net.NetworkCredential("mverifikacija@gmail.com", "Verifikacija.VM");
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = basicCredential1;
+            try
+            {
+                client.Send(message);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

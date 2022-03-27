@@ -31,6 +31,9 @@ namespace DLWMS_StudentskiOnlineServis.Data
         public DbSet<Rok> Rokovi { get; set; }
         public DbSet<Pitanje> Pitanja { get; set; }
         public DbSet<Odgovor> Odgovori { get; set; }
+        public DbSet<Rok_Student> OdgovoriNaPitanja { get; set; }
+        public DbSet<Ocjena> Ocjene { get; set; }
+        public DbSet<CHAT> Poruke { get; set; }
         public DLWMS_baza(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

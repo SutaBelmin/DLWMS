@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220318102007_TwoWayAUTH")]
+    partial class TwoWayAUTH
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -338,52 +340,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.ToTable("Verifikacije");
                 });
 
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Forum", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Odgovor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Pitanje")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("answererId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("questionerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("answererId");
-
-                    b.HasIndex("questionerId");
-
-                    b.ToTable("Forum");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Greska", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Datum_prijave")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Opis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Greska");
-                });
-
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Potvrda", b =>
                 {
                     b.Property<int>("Id")
@@ -593,9 +549,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                 {
                     b.HasBaseType("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog");
 
-                    b.Property<int>("CijenaSkolarine")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DatumRodjenja")
                         .HasColumnName("Student_DatumRodjenja")
                         .HasColumnType("datetime2");
@@ -615,21 +568,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Student");
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Modul_Admin.Models.Admin", b =>
-                {
-                    b.HasBaseType("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog");
-
-                    b.Property<string>("Ime")
-                        .HasColumnName("Admin_Ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prezime")
-                        .HasColumnName("Admin_Prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Admin");
                 });
 
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_1.Models.AutentifikacijaToken", b =>
@@ -739,20 +677,6 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.Profesor", "Profesor")
                         .WithMany()
                         .HasForeignKey("ProfesorID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Forum", b =>
-                {
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", "studentAnswerer")
-                        .WithMany()
-                        .HasForeignKey("answererId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Student", "studentQuestioner")
-                        .WithMany()
-                        .HasForeignKey("questionerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
