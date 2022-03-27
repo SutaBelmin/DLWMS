@@ -1,12 +1,8 @@
-﻿using DLWMS_StudentskiOnlineServis.Data;
-using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
-using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
+﻿using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
+using DLWMS_StudentskiOnlineServis.Services;
+using DLWMS_StudentskiOnlineServis.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Studentski_online_servis.Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 {
@@ -15,17 +11,17 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
     public class ForumController : ControllerBase
     {
-        private readonly DLWMS_baza baza;
+        private readonly IForumService forumService;
 
-        public ForumController(DLWMS_baza baza)
+        public ForumController(IForumService forumService)
         {
-            this.baza = baza;
+            this.forumService = forumService;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var forum = baza.Forum.ToList();
+            var forum = forumService.GetForums();
 
             return Ok(forum);
         }
@@ -33,12 +29,11 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         [HttpPost]
         public ActionResult AddPitanje(AddPitanjeVM x)
         {
-            var forum = new Forum();
-            forum.Pitanje = x.Pitanje;
-            forum.questionerId= HttpContext.GetLoginInfo().korisnickiNalog.student.ID;
-
-            baza.Forum.Add(forum);
-            baza.SaveChanges();
+            forumService.AddPitanje(new AddPitanjeServiceRequest
+            {
+                Pitanje = x.Pitanje,
+                QuestionerId = HttpContext.GetLoginInfo().korisnickiNalog.student.ID
+            });
 
             return Ok();
         }
@@ -47,11 +42,12 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         [HttpPost("{id}")]
         public ActionResult AddOdgovor(int id, AddOdgovorVM x)
         {
-            var forum = baza.Forum.Find(id);
-            forum.Odgovor = x.Odgovor;
-            forum.answererId= HttpContext.GetLoginInfo().korisnickiNalog.student.ID;
-
-            baza.SaveChanges();
+            forumService.AddOdgovor(new AddOdgovorServiceRequest
+            {
+                Id = id,
+                AnswererId = HttpContext.GetLoginInfo().korisnickiNalog.student.ID,
+                Odgovor = x.Odgovor
+            });
 
             return Ok();
         }

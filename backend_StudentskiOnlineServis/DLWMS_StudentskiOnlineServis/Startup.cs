@@ -1,5 +1,7 @@
 using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_1.Models;
+using DLWMS_StudentskiOnlineServis.Repositories;
+using DLWMS_StudentskiOnlineServis.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,8 @@ namespace DLWMS_StudentskiOnlineServis
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
+            services.AddRepositories();
+            services.AddServices();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
