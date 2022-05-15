@@ -21,6 +21,10 @@
     <Compile Remove="Migrations\20220320101039_Gresk.Designer.cs" />
     <Compile Remove="Migrations\20220320101518_AddTableGreska.cs" />
     <Compile Remove="Migrations\20220320101518_AddTableGreska.Designer.cs" />
+    <Compile Remove="Migrations\20220506163445_Error.cs" />
+    <Compile Remove="Migrations\20220506163445_Error.Designer.cs" />
+    <Compile Remove="Migrations\20220506164114_test.cs" />
+    <Compile Remove="Migrations\20220506164114_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +43,10 @@
     <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Vonage" Version="5.9.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DLWMS_StudentskiOnlineServis.Exceptions\DLWMS_StudentskiOnlineServis.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -39,6 +39,7 @@ import { ChatComponent } from './chat/chat.component';
 import {AutorizacijaStudent} from "./guards/AutorizacijaStudent";
 import {AutorizacijaReferent} from "./guards/AutorizacijaReferent";
 import { TwoWayComponent } from './login/two-way/two-way.component';
+import {TranslateModule} from "@ngx-translate/core";
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +79,9 @@ import { TwoWayComponent } from './login/two-way/two-way.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en'
+    }),
     RouterModule.forRoot([
       {path: '', component: LoginComponent},
       {path: 'login', component: LoginComponent},

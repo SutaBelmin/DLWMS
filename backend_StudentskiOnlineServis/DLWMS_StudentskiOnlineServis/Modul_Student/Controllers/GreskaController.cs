@@ -1,6 +1,7 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
-using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
+using DLWMS_StudentskiOnlineServis.Services;
+using DLWMS_StudentskiOnlineServis.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,33 +15,24 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
     public class GreskaController:ControllerBase
     {
-        private readonly DLWMS_baza baza;
+        private readonly IGreskaService greskaService;
 
-        public GreskaController(DLWMS_baza baza)
+        public GreskaController(IGreskaService greskaService)
         {
-            this.baza = baza;
+            this.greskaService = greskaService;
         }
 
         [HttpPost]
-        public ActionResult PrijavaGreske(AddGreskaVM x)
+        public ActionResult PrijavaGreske(AddGreskaRequest x)
         {
-            var greska = new Greska();
-
-            greska.Opis = x.Opis;
-            greska.Datum_prijave = DateTime.Now;
-
-            baza.Greska.Add(greska);
-            baza.SaveChanges();
-
+            greskaService.PrijavaGreske(x);
             return Ok();
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var greske = baza.Greska.ToList();
-
-            return Ok(greske);
+            return Ok(greskaService.GetAll());
         }
     }
 }

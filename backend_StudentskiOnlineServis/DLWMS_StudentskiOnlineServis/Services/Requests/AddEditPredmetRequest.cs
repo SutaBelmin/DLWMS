@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DLWMS_StudentskiOnlineServis.Modul_Student.Models
+namespace DLWMS_StudentskiOnlineServis.Services.Requests
 {
-    public class AddEditPredmetVM
+    public class AddEditPredmetRequest
     {
         public string Naziv { get; set; }
 

@@ -1,5 +1,7 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
+using DLWMS_StudentskiOnlineServis.Services;
+using DLWMS_StudentskiOnlineServis.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,71 +15,44 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
     public class PredmetController : ControllerBase
     {
-        private readonly DLWMS_baza _baza;
+        private readonly IPredmetService predmetService;
 
-        public PredmetController(DLWMS_baza baza)
+        public PredmetController(IPredmetService predmetService)
         {
-            this._baza = baza;
+            this.predmetService = predmetService;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var predemti = _baza.Predmet.ToList();
-
-            return Ok(predemti);
+            return Ok(predmetService.GetAll());
         }
 
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
-            var predemti = _baza.Predmet.FirstOrDefault(x => x.Id == id);
-
-            return Ok(predemti);
+            return Ok(predmetService.GetById(id));
         }
 
         [HttpPost]
-        public ActionResult AddPredmet(AddEditPredmetVM x)
+        public ActionResult AddPredmet(AddEditPredmetRequest x)
         {
-            var predmet = new Predmet();
-
-            predmet.Naziv = x.Naziv;
-            predmet.Oznaka = x.Oznaka;
-            predmet.Godina = x.Godina;
-
-            _baza.Predmet.Add(predmet);
-            _baza.SaveChanges();
-
+            predmetService.AddPredmet(x);
             return Ok();   
         }
 
         [HttpPost("{id}")]
-        public ActionResult EditPredmet(int id, AddEditPredmetVM x)
+        public ActionResult EditPredmet(int id, AddEditPredmetRequest x)
         {
-            var predmet = _baza.Predmet.Find(id);
-
-            predmet.Naziv = x.Naziv;
-            predmet.Oznaka = x.Oznaka;
-            predmet.Godina = x.Godina;
-
-            _baza.SaveChanges();
-
+            predmetService.EditPredmet(id, x);
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var predmet = _baza.Predmet
-                 .FirstOrDefault(x => x.Id == id);
-
-            if (predmet == null)
-                return BadRequest("pogresan ID");
-
-            _baza.Remove(predmet);
-
-            _baza.SaveChanges();
-            return Ok(predmet);
+            predmetService.Delete(id);
+            return Ok();
         }
     }
 }

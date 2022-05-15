@@ -1,4 +1,5 @@
 using DLWMS_StudentskiOnlineServis.Data;
+using DLWMS_StudentskiOnlineServis.Middlewares;
 using DLWMS_StudentskiOnlineServis.Modul_1.Models;
 using DLWMS_StudentskiOnlineServis.Repositories;
 using DLWMS_StudentskiOnlineServis.Services;
@@ -39,6 +40,7 @@ namespace DLWMS_StudentskiOnlineServis
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+            services.AddHttpContextAccessor();
 
 
             //QUARZ.NET
@@ -69,16 +71,15 @@ namespace DLWMS_StudentskiOnlineServis
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
+            app.UseExceptionHandlerMiddleware();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

@@ -1,4 +1,5 @@
-﻿using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
+﻿using DLWMS_StudentskiOnlineServis.Exceptions;
+using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Repositories;
 using DLWMS_StudentskiOnlineServis.Services.Requests;
 using System.Collections.Generic;
@@ -24,6 +25,12 @@ namespace DLWMS_StudentskiOnlineServis.Services
         public void AddOdgovor(AddOdgovorServiceRequest x)
         {
             var forum = forumRepository.Get(x.Id);
+           
+            if (forum == null)
+            {
+                throw new NotFoundException("Forum not found.");
+            }
+
             forum.Odgovor = x.Odgovor;
             forum.answererId = x.AnswererId;
 

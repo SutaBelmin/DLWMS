@@ -25,6 +25,8 @@ namespace DLWMS_StudentskiOnlineServis.Data
         public DbSet<SvrhaPotvrde> SvrhaPotvrde { get; set; }
         public DbSet<Greska> Greska { get; set; }
         public DbSet<Forum> Forum { get; set; }
+        public DbSet<Error> Error { get; set; }
+
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Cas> Casovi { get; set; }
         public DbSet<Prisustvo> Prisustva { get; set; }

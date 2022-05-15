@@ -1,4 +1,5 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
+using DLWMS_StudentskiOnlineServis.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,8 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
         List<TEntity> GetAll();
         void Add(TEntity entity);
         void Update(TEntity entity);
+        void Remove(TEntity entity);
+        void Remove(int id);
         void Commit();
     }
 
@@ -45,6 +48,19 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
         public TEntity Get(int id)
         {
             return baza.Set<TEntity>().Find(id);
+        }
+
+        public void Remove(TEntity entity)
+        {
+            baza.Set<TEntity>().Remove(entity);
+        }
+
+        public void Remove(int id)
+        {
+            var entity = baza.Set<TEntity>().Find(id);
+            if (entity == null)
+                throw new NotFoundException("entity is required");
+            Remove(entity);
         }
     }
 }

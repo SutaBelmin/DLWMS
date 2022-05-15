@@ -1,6 +1,8 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
+using DLWMS_StudentskiOnlineServis.Services;
+using DLWMS_StudentskiOnlineServis.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Studentski_online_servis.Helper;
@@ -16,26 +18,17 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
     public class UspjehController : ControllerBase
     {
-        private readonly DLWMS_baza _baza;
+        private readonly IUspjehService uspjehService;
 
-        public UspjehController(DLWMS_baza baza)
+        public UspjehController(IUspjehService uspjehService)
         {
-            this._baza = baza;
+            this.uspjehService = uspjehService;
         }
 
         [HttpPost]
-        public ActionResult AddOcjenu(AddOcjenaVM x)
+        public ActionResult AddOcjenu(AddOcjenaRequest x)
         {
-            var uspjeh = new Uspjeh();
-
-            uspjeh.student_predmetId = x.student_predmetId;
-            uspjeh.profesor_predmetId = x.profesor_predmetId;
-            uspjeh.ocjena = x.ocjena;
-            uspjeh.datum_upisa = x.datum_upisa;
-
-            _baza.Uspjeh.Add(uspjeh);
-            _baza.SaveChanges();
-
+            uspjehService.AddOcjenu(x);
             return Ok();
         }
 
@@ -43,11 +36,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
         public ActionResult GetListUspjeh()
         {
             var studId = HttpContext.GetLoginInfo().korisnickiNalog.student.ID;
-            var uspjeh = _baza.Uspjeh
-                .Include(x => x.student_predmet)
-                .ThenInclude(x => x.predmet)
-                .Where(x => x.student_predmet.studentId == studId)
-                .ToList();
+            var uspjeh = uspjehService.GetListUspjeh(studId);
 
             return Ok(uspjeh);
         }

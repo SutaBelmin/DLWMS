@@ -4,14 +4,16 @@ using DLWMS_StudentskiOnlineServis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DLWMS_StudentskiOnlineServis.Migrations
 {
     [DbContext(typeof(DLWMS_baza))]
-    partial class DLWMS_bazaModelSnapshot : ModelSnapshot
+    [Migration("20220506163700_Err")]
+    partial class Err
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,7 +347,7 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("KorisnickiNalogId")
+                    b.Property<int>("KorisnickiNalogId")
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
@@ -795,7 +797,8 @@ namespace DLWMS_StudentskiOnlineServis.Migrations
                     b.HasOne("DLWMS_StudentskiOnlineServis.Modul_1.Models.KorisnickiNalog", "korisnickiNalog")
                         .WithMany()
                         .HasForeignKey("KorisnickiNalogId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DLWMS_StudentskiOnlineServis.Modul_Student.Models.Forum", b =>

@@ -1,8 +1,9 @@
 ﻿using DLWMS_StudentskiOnlineServis.Modul_1.Models;
 using System;
 
-namespace DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels
-{
+namespace DLWMS_StudentskiOnlineServis.Services.Responses
+
+{ 
     public class StudentResponse
     {
         public int id { get; set; }

@@ -1,6 +1,8 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Modul_Student.ViewModels;
+using DLWMS_StudentskiOnlineServis.Services;
+using DLWMS_StudentskiOnlineServis.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,30 +17,23 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 
     public class Profesor_Predmet_Controller : ControllerBase
     {
-        private readonly DLWMS_baza _baza;
+        private readonly IProfesor_PredmetService profesor_PredmetService;
 
-        public Profesor_Predmet_Controller(DLWMS_baza baza)
+        public Profesor_Predmet_Controller(IProfesor_PredmetService profesor_PredmetService)
         {
-            this._baza = baza;
+            this.profesor_PredmetService = profesor_PredmetService;
         }
 
         [HttpPost]
-        public ActionResult AddProfesorPredmet(AddProfesorPredmetVM x)
+        public ActionResult AddProfesorPredmet(AddProfesorPredmetRequest x)
         {
-            var profesor_predmet = new Profesor_Predmet();
-
-            profesor_predmet.profesorId = x.profesorId;
-            profesor_predmet.predmetId = x.predmetId;
-
-            _baza.Profesor_Predmet.Add(profesor_predmet);
-            _baza.SaveChanges();
-
+            profesor_PredmetService.AddProfesorPredmet(x);
             return Ok();
         }
         [HttpGet]
-        public object GetProfesorPredmet(int ProfesorID)
+        public List<Profesor_Predmet> GetProfesorPredmet(int ProfesorID)
         {
-            return _baza.Profesor_Predmet.Include(x=>x.predmet).Include(x=>x.profesor).Where(x => x.profesorId == ProfesorID).ToList();
+            return profesor_PredmetService.GetProfesorPredmet(ProfesorID);
         }
     }
 }
