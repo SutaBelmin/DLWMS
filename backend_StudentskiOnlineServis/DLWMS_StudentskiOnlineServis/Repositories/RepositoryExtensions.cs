@@ -15,6 +15,7 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
             services.AddScoped<IProfesor_PredmetRepository, Profesor_PredmetRepository>();
             services.AddScoped<IStudent_PredmetRepository, Student_PredmetRepository>();
             services.AddScoped<IErrorRepository, ErrorRepository>();
+            services.AddScoped<IAutentifikacijaTokenRepository, AutentifikacijaTokenRepository>();
 
             return services;
         }

@@ -27,3 +27,22 @@ li a {
 li a:hover {
   background-color: #111;
 }
+
+.colmy
+{
+  position: relative;
+}
+
+.ldiv
+{
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.sel
+{
+  position: absolute;
+  right: 110px;
+  top: 10px;
+}

@@ -97,6 +97,11 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
                 result = result.Where(x => x.student_predmet.predmet.Godina == godina);
             }
 
+            if (!result.Any())
+            {
+                return 0;
+            }
+
             return result.Average(x => x.ocjena);
         }
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../../../MyConfig";
 import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-potvrde-pregled',
@@ -11,6 +12,7 @@ import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
 export class PotvrdePregledComponent implements OnInit {
 
   potvrde:any;
+  numberOfRecords: number= 0;
 
   constructor(private httpKlijent:HttpClient)
   {
@@ -23,12 +25,26 @@ export class PotvrdePregledComponent implements OnInit {
   }
 
 
-  getPotvrde()
+  getPotvrde(pageSize: number = 10,  page: number = 0)
   {
     var studentId=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.id;
-    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Potvrda/GetAll?studentId=${studentId}`).subscribe(x=>{
-      this.potvrde=x;
+    const potvrdeRequest  ={
+      studentId: studentId,
+      pageSize: pageSize,
+      pageNumber: page
+    };
+    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Potvrda/GetAll`, {
+      params: potvrdeRequest
+    }).subscribe(x=>{
+      // @ts-ignore
+      this.potvrde=x.potvrde;
+      // @ts-ignore
+      this.numberOfRecords = x.numberOfRecords;
     });
+  }
+
+  onPageChanged(e: PageEvent){
+    this.getPotvrde(e.pageSize, e.pageIndex);
   }
 
 }

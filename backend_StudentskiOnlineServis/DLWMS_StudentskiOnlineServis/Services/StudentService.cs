@@ -26,10 +26,12 @@ namespace DLWMS_StudentskiOnlineServis.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository studentRepository;
+        private readonly IAutentifikacijaTokenRepository autentifikacijaTokenRepository;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(IStudentRepository studentRepository, IAutentifikacijaTokenRepository autentifikacijaTokenRepository)
         {
             this.studentRepository = studentRepository;
+            this.autentifikacijaTokenRepository = autentifikacijaTokenRepository;
         }
 
         public Student Add(StudentAddRequest request)
@@ -54,6 +56,8 @@ namespace DLWMS_StudentskiOnlineServis.Services
 
         public void Delete(int id)
         {
+            var tokens = autentifikacijaTokenRepository.GetByStudentId(id).ToArray();
+            autentifikacijaTokenRepository.RemoveRange(tokens);
             studentRepository.Remove(id);
             studentRepository.Commit();
 

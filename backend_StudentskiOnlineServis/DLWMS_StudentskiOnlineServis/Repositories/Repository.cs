@@ -12,6 +12,8 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
         void Add(TEntity entity);
         void Update(TEntity entity);
         void Remove(TEntity entity);
+
+        void RemoveRange(TEntity[] entity);
         void Remove(int id);
         void Commit();
     }
@@ -53,6 +55,11 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
         public void Remove(TEntity entity)
         {
             baza.Set<TEntity>().Remove(entity);
+        }
+
+        public void RemoveRange(TEntity[] entity)
+        {
+            baza.Set<TEntity>().RemoveRange(entity);
         }
 
         public void Remove(int id)

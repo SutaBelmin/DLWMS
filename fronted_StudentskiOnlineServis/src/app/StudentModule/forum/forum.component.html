@@ -2,16 +2,16 @@
 
   <br>
   <div>
-    <input [(ngModel)]="pitanje"><button (click)="addPitanje()">Dodaj pitanje</button>
+    <input [(ngModel)]="pitanje"><button (click)="addPitanje()">{{'Dodaj pitanje' | translate}}</button>
   </div>
 
   <br>
   <table class="table table-warning">
     <thead>
     <tr>
-      <th>Pitanje</th>
-      <th>Odgovor</th>
-      <th>Akcija</th>
+      <th>{{'Pitanje' | translate}}</th>
+      <th>{{'Odgovor' | translate}}</th>
+      <th>{{'Akcija' | translate}}</th>
     </tr>
     </thead>
 
@@ -20,7 +20,7 @@
       <td>{{f.pitanje}}</td>
       <td>{{f.odgovor}}</td>
       <td><input [name]="'odgovor[{{i}}]'" [(ngModel)]="forum[i].odgovor">
-        <button *ngIf="f.questionerId!=logiraniKorisnik" (click)="addOdgovor(f.id)">Evidentiraj</button>
+        <button *ngIf="f.questionerId!=logiraniKorisnik" (click)="addOdgovor(f.id)">{{'Evidentiraj' | translate}}</button>
       </td>
     </tr>
     </tbody>

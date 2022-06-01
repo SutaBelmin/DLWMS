@@ -1,20 +1,12 @@
-﻿using DLWMS_StudentskiOnlineServis.Data;
-using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
-using DLWMS_StudentskiOnlineServis.Services;
+﻿using DLWMS_StudentskiOnlineServis.Services;
 using DLWMS_StudentskiOnlineServis.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Studentski_online_servis.Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
 {
-    [ApiController]
     [Route("[controller]/[action]")]
-
+    [ApiController]
     public class PotvrdaController:ControllerBase
     {
         private readonly IPotvrdaService potvrdaService;
@@ -24,10 +16,12 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             this.potvrdaService = potvrdaService;
         }
 
+
         [HttpGet]
-        public ActionResult GetAll(int? studentId)
+        public IActionResult GetAll([FromQuery] PotvrdaGetByParamsRequest request)
         {
-            return Ok(potvrdaService.GetByParams(studentId));
+            var result = potvrdaService.GetByParams(request);
+            return Ok(result);
         }
 
         [HttpPost]

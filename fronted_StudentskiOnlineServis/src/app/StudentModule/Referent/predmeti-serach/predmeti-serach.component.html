@@ -1,7 +1,7 @@
 <div class="container">
 
   <div>
-    <button routerLink="/referent/predmeti/add">Dodaj novi predmet</button>
+    <button routerLink="/referent/predmeti/add">{{'Dodaj novi predmet' | translate}}</button>
   </div>
   <br>
 
@@ -9,10 +9,10 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Naziv</th>
-      <th>Oznaka</th>
-      <th>Godina</th>
-      <th>Akcija</th>
+      <th>{{'Naziv' | translate}}</th>
+      <th>{{'Oznaka' | translate}}</th>
+      <th>{{'Godina' | translate}}</th>
+      <th>{{'Akcija' | translate}}</th>
     </tr>
 
     </thead>
@@ -24,8 +24,8 @@
       <td>{{p.oznaka}}</td>
       <td>{{p.godina}}</td>
       <td>
-        <button (click)="delete(p.id)">Obrisi</button>
-        <button (click)="edit(p.id)">Edit</button>
+        <button (click)="delete(p.id)">{{'Obrisi' | translate}}</button>
+        <button (click)="edit(p.id)">{{'Edit' | translate}}</button>
       </td>
     </tr>
     </tbody>

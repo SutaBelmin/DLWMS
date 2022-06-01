@@ -1,20 +1,14 @@
 <div class="container">
 
   <div class="row">
-    <div>
-      <button class="btn btn-primary float-end" (click)="LogOut()">Odjavi se</button>
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col-8">
-      Obavijesti:
+      {{'Obavijesti' | translate}}:
     </div>
   </div>
 
   <div class="my-row">
    <div class="inp">
-     <label>Ukupni uspjeh:</label>
+     <label>{{'Ukupni uspjeh:' | translate}}</label>
      <br>
      <input [value]="student?.prosjek">
    </div>
@@ -23,14 +17,14 @@
   <br><br><br>
   <div class="my-row">
     <div class="inp">
-      <label>Školarina:</label>
+      <label>{{'Školarina' | translate}}:</label>
       <br>
       <input [value]="student.skolarina">
     </div>
   </div>
 
   <div class="my-class">
-    <a routerLink="/greska">Prijava greške</a>
+    <a routerLink="/greska">{{'Prijava greške' | translate}}</a>
   </div>
 
 </div>

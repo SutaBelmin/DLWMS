@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../../../MyConfig";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin-pocetna',
@@ -11,17 +12,16 @@ import {Router} from "@angular/router";
 export class AdminPocetnaComponent implements OnInit {
 
   greske:any;
+  language: any = "en";
 
-  token:any=localStorage.getItem('_Token');
-
-  constructor(private httpKlijent:HttpClient, private router:Router)
-  {
+  constructor(private httpKlijent:HttpClient, private router:Router, private languageService: TranslateService) {
 
   }
 
   ngOnInit(): void
   {
     this.getGreske();
+    this.language = this.languageService.currentLang ?? "en";
   }
 
   getGreske()
@@ -37,5 +37,11 @@ export class AdminPocetnaComponent implements OnInit {
       localStorage.removeItem('_Token');
       this.router.navigateByUrl('/login')
     });
+  }
+
+  changeLanguage(e: Event)
+  {
+    let lang = (e.target as HTMLInputElement).value;
+    this.languageService.use(lang);
   }
 }

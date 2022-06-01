@@ -1,18 +1,28 @@
 
 <div class="container">
 
-  <div class="row">
-    <div>
-      <button class="btn btn-primary float-end" (click)="LogOut()">Odjavi se</button>
+  <div class="mrow" >
+
+    <div class="sel">
+      <select (change)="changeLanguage($event)" [(ngModel)]="language">
+        <option value="en">English</option>
+        <option value="bs">Bosnian</option>
+      </select>
     </div>
+
+      <div>
+      <button class="btn btn-primary float-end" (click)="LogOut()">{{'Odjavi se' | translate}}</button>
+      </div>
+
   </div>
+
 
   <table class="table table-warning">
     <thead>
     <tr>
-      <th>Id</th>
-      <th>Opis</th>
-      <th>Datum prijave</th>
+      <th>{{'Id' | translate}}</th>
+      <th>{{'Opis' | translate}}</th>
+      <th>{{'Datum prijave' | translate}}</th>
     </tr>
     </thead>
 

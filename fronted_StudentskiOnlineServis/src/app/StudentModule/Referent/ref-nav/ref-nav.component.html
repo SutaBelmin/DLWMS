@@ -1,11 +1,20 @@
 <div class="container my-con" >
   <div class="row">
-    <div class="col p-0">
+    <div class="colmy p-0">
       <ul>
-        <li><a routerLink="student">Studenti</a></li>
-        <li><a routerLink="predmeti">Predmeti</a></li>
-        <li><a routerLink="potvrde">Potvrde</a></li>
-        <li><a routerLink="/chat">CHAT</a></li>
+        <li><a routerLink="student">{{'Studenti' | translate}}</a></li>
+        <li><a routerLink="predmeti">{{'Predmeti' | translate}}</a></li>
+        <li><a routerLink="potvrde">{{'Potvrde' | translate}}</a></li>
+        <li><a routerLink="chat">{{'Razgovor' | translate}}</a></li>
+        <li><select class="sel" (change)="changeLanguage($event)" [(ngModel)]="language">
+          <option value="en">English</option>
+          <option value="bs">Bosnian</option>
+        </select></li>
+        <li>
+         <div class="ldiv">
+           <button class="btn btn-primary float-end" (click)="LogOut()">{{'Odjavi se' | translate}}</button>
+         </div>
+        </li>
       </ul>
     </div>
   </div>

@@ -1,32 +1,27 @@
-<!--<app-nav-menu></app-nav-menu>-->
 <div class="container">
 
-  <div class="row">
-    <div>
-      <button class="btn btn-primary float-end" (click)="LogOut()">Odjavi se</button>
-    </div>
-  </div>
-
   <div>
-    <button routerLink="/referent/student/add">Dodaj novog studenta</button>
+    <button routerLink="/referent/student/add">{{'Dodaj novog studenta' | translate}}</button>
   </div>
 
   <br>
   <div>
     <input [(ngModel)]="searchTerm">
-    <button (click)="search()">Pretrazi</button>
+    <button (click)="search()">{{'Pretrazi' | translate}}</button>
   </div>
   <table class="table table-warning">
+    <thead>
     <tr>
       <th>ID</th>
-      <th>Ime</th>
-      <th>Prezime</th>
-      <th>Broj indeksa</th>
-      <th>Datum rođenja</th>
-      <th>Slika</th>
-      <th>Školarina</th>
-      <th>Akcija</th>
+      <th>{{'Ime' | translate}}</th>
+      <th>{{'Prezime' | translate}}</th>
+      <th>{{'Broj indeksa' | translate}}</th>
+      <th>{{'Datum rođenja' | translate}}</th>
+      <th>{{'Slika' | translate}}</th>
+      <th>{{'Školarina' | translate}}</th>
+      <th>{{'Akcija' | translate}}</th>
     </tr>
+    </thead>
     <tbody>
     <tr *ngFor="let s of students;let i = index">
       <td>{{s.id}}</td>
@@ -35,10 +30,10 @@
       <td>{{s.broj_indeksa}}</td>
       <td>{{s.datum_rodjenja}}</td>
       <td><img src="{{s.slika_studenta}}" style="height: 50px;width: 50px"> </td>
-      <td><input [name]="'cijenaSkolarine[{{i}}]'" [(ngModel)]="students[i].cijenaSkolarine"><button (click)="skolarina(s.id)">Evidentiraj</button></td>
+      <td><input [name]="'cijenaSkolarine[{{i}}]'" [(ngModel)]="students[i].cijenaSkolarine"><button (click)="skolarina(s.id)">{{'Evidentiraj' | translate}}</button></td>
       <td>
-        <button (click)="delete(s.id)">Obrisi</button>
-        <button (click)="edit(s.id)">Edit</button>
+        <button (click)="delete(s.id)">{{'Obrisi' | translate}}</button>
+        <button (click)="edit(s.id)">{{'Uredi' | translate}}</button>
 
       </td>
     </tr>
@@ -46,7 +41,7 @@
   </table>
 
   <div class="text-md-end">
-    <a routerLink="/greska">Prijava greške</a>
+    <a routerLink="/greska">{{'Prijava greške' | translate}}</a>
   </div>
 
 </div>

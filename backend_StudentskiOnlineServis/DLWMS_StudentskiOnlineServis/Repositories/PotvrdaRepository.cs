@@ -1,5 +1,7 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
+using DLWMS_StudentskiOnlineServis.Services.Requests;
+using DLWMS_StudentskiOnlineServis.Services.Responses;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
 {
     public interface IPotvrdaRepository : IRepository<Potvrda>
     {
-        List<Potvrda> GetByParams(int? studentId);
+        PotvrdaGetByParamsResponse GetByParams(PotvrdaGetByParamsRequest request);
         List<SvrhaPotvrde> GetSvrhe();
     }
 
@@ -23,19 +25,24 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
             this.baza = baza;
         }
 
-        public List<Potvrda> GetByParams(int? studentId)
+        public PotvrdaGetByParamsResponse GetByParams(PotvrdaGetByParamsRequest request)
         {
             var potvrde = baza.Potvrda
                .Include(x => x.student)
                .Include(x => x.svrha)
                .AsQueryable();
 
-            if (studentId.HasValue)
+            if (request.StudentId.HasValue)
             {
-                potvrde = potvrde.Where(x => x.studentId == studentId);
+                potvrde = potvrde.Where(x => x.studentId == request.StudentId);
             }
 
-            return potvrde.ToList();
+            int recordsToSkip = request.PageNumber * request.PageSize;
+            return new PotvrdaGetByParamsResponse
+            {
+                NumberOfRecords = potvrde.Count(),
+                Potvrde = potvrde.Skip(recordsToSkip).Take(request.PageSize).ToList()
+            };
         }
 
         public List<SvrhaPotvrde> GetSvrhe()

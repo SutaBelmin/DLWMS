@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { LoginComponent } from './login/login.component';
 import { ZaboravioSifruComponent } from './login/zaboravio-sifru/zaboravio-sifru.component';
@@ -39,7 +39,15 @@ import { ChatComponent } from './chat/chat.component';
 import {AutorizacijaStudent} from "./guards/AutorizacijaStudent";
 import {AutorizacijaReferent} from "./guards/AutorizacijaReferent";
 import { TwoWayComponent } from './login/two-way/two-way.component';
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorModule} from "@angular/material/paginator";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,8 +87,14 @@ import {TranslateModule} from "@ngx-translate/core";
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MatPaginatorModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'en'
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     }),
     RouterModule.forRoot([
       {path: '', component: LoginComponent},
@@ -94,7 +108,11 @@ import {TranslateModule} from "@ngx-translate/core";
       {path: 'profesor/cas/prisustvo/pregled/:casID', component: PrisustvaPoCasuComponent, canActivate: [AutorizacijaProfesor]},
       {path: 'profesor/rok_test/pitanja/:rokID', component: PitanjaComponent, canActivate: [AutorizacijaProfesor]},
       {path:'profesor/rok_test/rezultati/:rokID', component: RezultatiComponent, canActivate: [AutorizacijaProfesor]},
-      {path:'chat', component: ChatComponent, canActivate: [AutorizacijaLoginProvjera]},
+      {
+        path:'chat',
+        component: ChatComponent,
+        canActivate: [AutorizacijaLoginProvjera]
+      },
       {
         path: 'referent',
         component: ReferentComponent, canActivate:[AutorizacijaReferent],
@@ -130,7 +148,12 @@ import {TranslateModule} from "@ngx-translate/core";
           {
             path: 'predmeti/edit/:id',
             component: PredmetiEditComponent
-          }
+          },
+          {
+            path:'chat',
+            component: ChatComponent,
+            canActivate: [AutorizacijaLoginProvjera]
+          },
         ]
       },
       {
@@ -163,12 +186,18 @@ import {TranslateModule} from "@ngx-translate/core";
           {
             path:'forum',
             component:ForumComponent
-          }
+          },
+          {
+            path:'chat',
+            component: ChatComponent,
+            canActivate: [AutorizacijaLoginProvjera]
+          },
         ]
       },
       {path:'admin',component:AdminPocetnaComponent},
       {path:'greska',component:PrijavaGreskeComponent}
     ]),
+    BrowserAnimationsModule,
   ],
   providers: [
     AutorizacijaProfesor,

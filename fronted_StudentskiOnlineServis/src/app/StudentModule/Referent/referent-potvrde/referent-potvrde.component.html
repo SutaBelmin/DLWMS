@@ -2,14 +2,16 @@
 <div class="container">
 
   <table class="table table-warning">
+    <thead>
     <tr>
       <th>ID</th>
       <th>Student</th>
-      <th>Opis</th>
-      <th>Svrha</th>
-      <th>Izdata</th>
-      <th>Izdaj</th>
+      <th>{{'Opis' | translate}}</th>
+      <th>{{'Svrha' | translate}}</th>
+      <th>{{'Izdata' | translate}}</th>
+      <th>{{'Izdaj' | translate}}</th>
     </tr>
+    </thead>
     <tbody>
     <tr *ngFor="let p of potvrde">
       <td>{{p.id}}</td>
@@ -17,10 +19,17 @@
       <td>{{p.opis}}</td>
       <td>{{p.svrha.naziv}}</td>
       <td>{{p.izdata}}</td>
-      <td><button *ngIf="p.izdata==false" (click)="izdaj(p.id)">Izdaj</button></td>
+      <td><button *ngIf="p.izdata==false" (click)="izdaj(p.id)">{{'Izdaj' | translate}}</button></td>
     </tr>
     </tbody>
   </table>
+
+  <mat-paginator [length]="numberOfRecords"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100, 250, 500]"
+                 (page)="onPageChanged($event)"
+                 aria-label="Select page">
+  </mat-paginator>
 
 </div>
 

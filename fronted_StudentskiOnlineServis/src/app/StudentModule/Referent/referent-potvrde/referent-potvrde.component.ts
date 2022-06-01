@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../../../MyConfig";
+import {PageEvent} from "@angular/material/paginator";
+import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-referent-potvrde',
@@ -10,6 +12,8 @@ import {MojConfig} from "../../../MyConfig";
 export class ReferentPotvrdeComponent implements OnInit {
 
   potvrde:any;
+  numberOfRecords: number= 0;
+
 
   constructor(private httpKlijent:HttpClient)
   {
@@ -21,10 +25,19 @@ export class ReferentPotvrdeComponent implements OnInit {
     this.getPotvrde();
   }
 
-  getPotvrde()
+  getPotvrde(pageSize: number = 10,  page: number = 0)
   {
-    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Potvrda/GetAll`).subscribe(x=>{
-      this.potvrde=x;
+    const potvrdeRequest  ={
+      pageSize: pageSize,
+      pageNumber: page
+    };
+    this.httpKlijent.get(`${MojConfig.MyLocalHost}/Potvrda/GetAll`, {
+      params: potvrdeRequest
+    }).subscribe(x=>{
+      // @ts-ignore
+      this.potvrde=x.potvrde;
+      // @ts-ignore
+      this.numberOfRecords = x.numberOfRecords;
     });
   }
 
@@ -33,5 +46,9 @@ export class ReferentPotvrdeComponent implements OnInit {
     this.httpKlijent.post(`${MojConfig.MyLocalHost}/Potvrda/IzdajPotvrdu/${id}`,{}, MojConfig.http_opcije()).subscribe(x=>{
       this.getPotvrde();
     });
+  }
+
+  onPageChanged(e: PageEvent){
+    this.getPotvrde(e.pageSize, e.pageIndex);
   }
 }

@@ -61,12 +61,4 @@ export class StudentsSearchComponent implements OnInit {
      this.getStudents();
    });
   }
-
-  LogOut()
-  {
-    this.httpClient.delete(MojConfig.AutentifikacijaLogOut, MojConfig.http_opcije()).subscribe(x=> {
-      localStorage.removeItem('_Token');
-      this.router.navigateByUrl('/login')
-    });
-  }
 }

@@ -2,6 +2,7 @@
 using DLWMS_StudentskiOnlineServis.Modul_Student.Models;
 using DLWMS_StudentskiOnlineServis.Repositories;
 using DLWMS_StudentskiOnlineServis.Services.Requests;
+using DLWMS_StudentskiOnlineServis.Services.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DLWMS_StudentskiOnlineServis.Services
 {
     public interface IPotvrdaService
     {
-        List<Potvrda> GetByParams(int? studentId);
+        PotvrdaGetByParamsResponse GetByParams(PotvrdaGetByParamsRequest request);
         void AddPotvrdu(AddPotvrdaRequest x);
         List<SvrhaPotvrde> GetSvrhe();
         void IzdajPotvrdu(int id, int referentId);
@@ -25,9 +26,9 @@ namespace DLWMS_StudentskiOnlineServis.Services
         {
             this.potvrdaRepository = potvrdaRepository;
         }
-        public List<Potvrda> GetByParams(int? studentId)
+        public PotvrdaGetByParamsResponse GetByParams(PotvrdaGetByParamsRequest request)
         {
-           return potvrdaRepository.GetByParams(studentId);
+           return potvrdaRepository.GetByParams(request);
         }
 
         public void AddPotvrdu(AddPotvrdaRequest x)

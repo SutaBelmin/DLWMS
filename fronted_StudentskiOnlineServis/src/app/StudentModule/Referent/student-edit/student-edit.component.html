@@ -2,22 +2,22 @@
 
 <form (ngSubmit)="Save()" #studentEditForm="ngForm" class="forma">
   <div class="razmak">
-    <label>Ime</label><br>
+    <label>{{'Ime' | translate}}</label><br>
     <input type="text" [(ngModel)]="student.ime" name="ime" required/>
   </div>
 
   <div class="razmak">
-    <label>Prezime</label><br>
+    <label>{{'Prezime' | translate}}</label><br>
     <input type="text" [(ngModel)]="student.prezime" name="prezime" required>
   </div>
 
   <div class="razmak">
-    <label>Datum rodjenja</label><br>
+    <label>{{'Datum rođenja' | translate}}</label><br>
     <input type="date" [(ngModel)]="student.datum_rodjenja" name="datum_rodjenja" required>
   </div>
 
   <div class="razmak">
-    <label>Fakulteti</label><br>
+    <label>{{'Fakulteti' | translate}}</label><br>
     <select [(ngModel)]="student.FakultetID" name="FakultetID" required>
       <option *ngFor="let fakultet of Fakulteti" [ngValue]="fakultet.id">{{fakultet.naziv}}</option>
     </select>
@@ -27,14 +27,14 @@
     <img src="{{student.slika_studenta}}" style="width: 100px; height: 100px">
   </div>
   <div class="razmak">
-    <label>Slika profila</label>
+    <label>{{'Slika profila' | translate}}</label>
     <input
       type="file" (change)="onFileChanged($event)"
       #fileInput>
   </div>
 
   <div class="razmak">
-    <button type="submit" >Edituj studenta</button>
+    <button type="submit" >{{'Uredi' | translate}}</button>
   </div>
 
 </form>
