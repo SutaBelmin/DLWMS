@@ -1,6 +1,7 @@
 ﻿using DLWMS_StudentskiOnlineServis.Data;
 using DLWMS_StudentskiOnlineServis.Modul_1.Models;
 using DLWMS_StudentskiOnlineServis.Modul_1.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Studentski_online_servis.Helper;
@@ -41,7 +42,6 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
             _dbContext.SaveChanges();
             return new LoginInformacije(noviToken);
         }
-
 
         [HttpDelete]
         public IActionResult Logout()

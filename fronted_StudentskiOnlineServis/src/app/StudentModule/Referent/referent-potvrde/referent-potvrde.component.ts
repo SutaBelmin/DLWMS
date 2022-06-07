@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../../../MyConfig";
-import {PageEvent} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
 
 @Component({
@@ -12,7 +12,10 @@ import {AutentifikacijaHelper} from "../../../helpers/autentifikacija-helper";
 export class ReferentPotvrdeComponent implements OnInit {
 
   potvrde:any;
+  pageSize: number= 10;
+  pageIndex: number= 0;
   numberOfRecords: number= 0;
+  @ViewChild("matPaginator", {static: true}) private paginator: MatPaginator;
 
 
   constructor(private httpKlijent:HttpClient)
@@ -44,11 +47,13 @@ export class ReferentPotvrdeComponent implements OnInit {
   izdaj(id:any)
   {
     this.httpKlijent.post(`${MojConfig.MyLocalHost}/Potvrda/IzdajPotvrdu/${id}`,{}, MojConfig.http_opcije()).subscribe(x=>{
-      this.getPotvrde();
+      this.onPageChanged({pageSize:this.pageSize, pageIndex: this.pageIndex} as PageEvent);
     });
   }
 
   onPageChanged(e: PageEvent){
+    this.pageSize = e.pageSize;
+    this.pageIndex= e.pageIndex;
     this.getPotvrde(e.pageSize, e.pageIndex);
   }
 }
