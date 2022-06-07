@@ -102,10 +102,9 @@ namespace DLWMS_StudentskiOnlineServis
             app.UseRouting();
             //app.UseCors("AllowAll"); //This needs to set everything allowed
             app.UseCors(x => x
-            .WithOrigins("https://app.fit.ba", "https://p2103.app.fit.ba", "https://dlwms-api.p2103.app.fit.ba")
-            .WithMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
-            .AllowAnyHeader()
-            .AllowCredentials());
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
