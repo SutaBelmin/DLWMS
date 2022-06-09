@@ -48,7 +48,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
             predmetService.Delete(id);

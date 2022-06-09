@@ -43,7 +43,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_1.Controllers
             return new LoginInformacije(noviToken);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public IActionResult Logout()
         {
             AutentifikacijaToken k = HttpContext.GetAuthToken();

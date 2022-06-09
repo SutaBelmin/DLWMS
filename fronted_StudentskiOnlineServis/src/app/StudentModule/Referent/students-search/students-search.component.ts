@@ -36,7 +36,7 @@ export class StudentsSearchComponent implements OnInit {
   }
 
   delete(id: number){
-    this.httpClient.delete(`${MojConfig.MyLocalHost}/Student/Delete/${id}`).subscribe(x => {
+    this.httpClient.post(`${MojConfig.MyLocalHost}/Student/Delete/${id}`,{}).subscribe(x => {
       this.getStudents();
       porukaSuccess("Student uspješno obrisan");
     });

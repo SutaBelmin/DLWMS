@@ -27,7 +27,7 @@ export class RefNavComponent implements OnInit {
 
   LogOut()
   {
-    this.httpClient.delete(MojConfig.AutentifikacijaLogOut, MojConfig.http_opcije()).subscribe(x=> {
+    this.httpClient.post(MojConfig.AutentifikacijaLogOut, MojConfig.http_opcije(),{}).subscribe(x=> {
       localStorage.removeItem('_Token');
       this.router.navigateByUrl('/login')
     });

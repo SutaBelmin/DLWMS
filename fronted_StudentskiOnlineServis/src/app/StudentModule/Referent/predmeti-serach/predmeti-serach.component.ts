@@ -33,7 +33,7 @@ export class PredmetiSerachComponent implements OnInit {
 
   delete(id:any)
   {
-   this.httpKlijent.delete(`${MojConfig.MyLocalHost}/Predmet/Delete/${id}`).subscribe(x=>{
+   this.httpKlijent.post(`${MojConfig.MyLocalHost}/Predmet/Delete/${id}`,{}).subscribe(x=>{
      this.getPredmeti();
      porukaSuccess("Predmet uspješno obrisan");
    });

@@ -65,7 +65,7 @@ namespace DLWMS_StudentskiOnlineServis.Modul_Student.Controllers
             return studentService.GetAll();
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
             studentService.Delete(id);

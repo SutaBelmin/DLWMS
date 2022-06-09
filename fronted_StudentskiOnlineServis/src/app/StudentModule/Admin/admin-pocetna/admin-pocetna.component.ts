@@ -33,7 +33,7 @@ export class AdminPocetnaComponent implements OnInit {
 
   LogOut()
   {
-    this.httpKlijent.delete(MojConfig.AutentifikacijaLogOut, MojConfig.http_opcije()).subscribe(x=> {
+    this.httpKlijent.post(MojConfig.AutentifikacijaLogOut, MojConfig.http_opcije(),{}).subscribe(x=> {
       localStorage.removeItem('_Token');
       this.router.navigateByUrl('/login')
     });
