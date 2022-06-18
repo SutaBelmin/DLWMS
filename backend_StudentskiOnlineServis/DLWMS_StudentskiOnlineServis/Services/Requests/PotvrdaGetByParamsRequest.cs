@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DLWMS_StudentskiOnlineServis.Services.Requests
+﻿namespace DLWMS_StudentskiOnlineServis.Services.Requests
 {
     public class PotvrdaGetByParamsRequest
     {
         public int? StudentId { get; set; }
+
+        public bool PagedResult { get; set; } = true;
 
         public int PageSize { get; set; } = 10;
 

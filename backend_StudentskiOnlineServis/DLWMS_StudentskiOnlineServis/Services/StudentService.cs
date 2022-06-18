@@ -27,11 +27,14 @@ namespace DLWMS_StudentskiOnlineServis.Services
     {
         private readonly IStudentRepository studentRepository;
         private readonly IAutentifikacijaTokenRepository autentifikacijaTokenRepository;
+        private readonly IPotvrdaRepository potvrdaRepository;
 
-        public StudentService(IStudentRepository studentRepository, IAutentifikacijaTokenRepository autentifikacijaTokenRepository)
+
+        public StudentService(IStudentRepository studentRepository, IAutentifikacijaTokenRepository autentifikacijaTokenRepository, IPotvrdaRepository potvrdaRepository)
         {
             this.studentRepository = studentRepository;
             this.autentifikacijaTokenRepository = autentifikacijaTokenRepository;
+            this.potvrdaRepository = potvrdaRepository;
         }
 
         public Student Add(StudentAddRequest request)
@@ -58,6 +61,15 @@ namespace DLWMS_StudentskiOnlineServis.Services
         {
             var tokens = autentifikacijaTokenRepository.GetByStudentId(id).ToArray();
             autentifikacijaTokenRepository.RemoveRange(tokens);
+
+
+            var potvrda = this.potvrdaRepository.GetByParams(new PotvrdaGetByParamsRequest
+            {
+                StudentId = id,
+                PagedResult = false
+            });
+            potvrdaRepository.RemoveRange(potvrda.Potvrde.ToArray());
+
             studentRepository.Remove(id);
             studentRepository.Commit();
 

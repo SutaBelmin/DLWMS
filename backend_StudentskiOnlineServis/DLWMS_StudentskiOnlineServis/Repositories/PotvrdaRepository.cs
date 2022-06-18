@@ -38,10 +38,17 @@ namespace DLWMS_StudentskiOnlineServis.Repositories
             }
 
             int recordsToSkip = request.PageNumber * request.PageSize;
+            
+            var result = potvrde;
+            if (request.PagedResult)
+            {
+                result = result.Skip(recordsToSkip).Take(request.PageSize);
+            }
+           
             return new PotvrdaGetByParamsResponse
             {
                 NumberOfRecords = potvrde.Count(),
-                Potvrde = potvrde.Skip(recordsToSkip).Take(request.PageSize).ToList()
+                Potvrde = result.ToList()
             };
         }
 
