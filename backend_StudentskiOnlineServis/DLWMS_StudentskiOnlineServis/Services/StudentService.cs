@@ -28,13 +28,17 @@ namespace DLWMS_StudentskiOnlineServis.Services
         private readonly IStudentRepository studentRepository;
         private readonly IAutentifikacijaTokenRepository autentifikacijaTokenRepository;
         private readonly IPotvrdaRepository potvrdaRepository;
+        private readonly IForumRepository forumRepository;
+        
 
 
-        public StudentService(IStudentRepository studentRepository, IAutentifikacijaTokenRepository autentifikacijaTokenRepository, IPotvrdaRepository potvrdaRepository)
+        public StudentService(IStudentRepository studentRepository, IAutentifikacijaTokenRepository autentifikacijaTokenRepository,
+            IPotvrdaRepository potvrdaRepository, IForumRepository forumRepository)
         {
             this.studentRepository = studentRepository;
             this.autentifikacijaTokenRepository = autentifikacijaTokenRepository;
             this.potvrdaRepository = potvrdaRepository;
+            this.forumRepository = forumRepository;
         }
 
         public Student Add(StudentAddRequest request)
@@ -69,6 +73,12 @@ namespace DLWMS_StudentskiOnlineServis.Services
                 PagedResult = false
             });
             potvrdaRepository.RemoveRange(potvrda.Potvrde.ToArray());
+
+            var forum = this.forumRepository.GetByParams(new ForumGetByParamsRequest
+            {
+                studentId = id
+            });
+            forumRepository.RemoveRange(forum.ToArray());
 
             studentRepository.Remove(id);
             studentRepository.Commit();
